@@ -28,7 +28,7 @@ const disenosEstampados = [
     { nombre: "Collage azul 972", archivo: "13-collage-azul-972.png", talles: ["M", "XL"] },
     { nombre: "Collage amarillo 972", archivo: "14-collage-amarillo-972.png", talles: ["M", "XL"] },
     { nombre: "Hojas azules", archivo: "15-hojas-azules.png", talles: ["S", "M", "XL"] },
-    { nombre: "Jaspeado blanco 980", archivo: "16-jaspeado-blanco-980.png", talles: ["L"] },
+    { nombre: "Jaspeado blanco 980", archivo: "16-jaspeado-blanco-980-lody.png", talles: ["L"] },
     { nombre: "Jaspeado azul 980", archivo: "17-jaspeado-azul-980.png", talles: ["XL"] },
     { nombre: "Jaspeado negro 980", archivo: "18-jaspeado-negro-980.png", talles: ["XL"] },
     { nombre: "Geométrico azul 982", archivo: "19-geometrico-azul-982.png", talles: ["M", "L", "XL"] }
@@ -321,3 +321,4 @@ function enviarWhatsApp() {
         "_blank"
     );
 }
+
