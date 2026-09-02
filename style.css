@@ -377,6 +377,87 @@ button:hover{
 }
 
 
+/* MEDIOS DE PAGO */
+
+.medios-pago{
+    max-width:900px;
+    margin:20px auto 50px;
+    padding:38px 24px;
+    text-align:center;
+    background:white;
+    border-radius:18px;
+    box-shadow:0 8px 24px rgba(0,0,0,.12);
+}
+
+.medios-pago-etiqueta{
+    margin:0 0 8px;
+    color:#e32620;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.medios-pago h2{
+    margin:0;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:34px;
+}
+
+.medios-pago-texto{
+    margin:10px 0 26px;
+    color:#555;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:17px;
+}
+
+.opciones-pago{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+}
+
+.opcion-pago{
+    padding:22px 14px;
+    border:1px solid #e5e5e5;
+    border-radius:14px;
+    background:#fafafa;
+}
+
+.pago-icono{
+    width:54px;
+    height:54px;
+    margin:0 auto 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:#111;
+    color:white;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:25px;
+    font-weight:800;
+}
+
+.pago-icono-mp{
+    background:#00a8e0;
+    font-size:17px;
+}
+
+.opcion-pago h3{
+    margin:0 0 6px;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:19px;
+}
+
+.opcion-pago p{
+    margin:0;
+    color:#666;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:14px;
+}
+
+
 /* FOOTER */
 
 footer{
@@ -530,4 +611,14 @@ footer p{
     .card .miniatura img{
         height:100%;
     }
+
+    .medios-pago{
+        max-width:82%;
+        padding:30px 20px;
+    }
+
+    .opciones-pago{
+        grid-template-columns:1fr;
+    }
 }
+
