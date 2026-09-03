@@ -450,16 +450,24 @@ button:hover{
 }
 
 .pago-icono-mp{
-    background:#009ee3;
+    width:76px;
+    background:transparent;
 }
 
-.pago-icono-mp svg{
-    width:36px;
-    height:36px;
+.pago-icono-mp img{
+    width:76px;
+    height:54px;
+    object-fit:contain;
 }
 
 .pago-icono-tarjeta{
-    background:#e32620;
+    width:68px;
+    background:transparent;
+}
+
+.pago-icono-tarjeta svg{
+    width:64px;
+    height:48px;
 }
 
 .opcion-pago h3{
