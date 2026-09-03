@@ -439,9 +439,27 @@ button:hover{
     font-weight:800;
 }
 
+.pago-icono svg{
+    width:30px;
+    height:30px;
+    fill:currentColor;
+}
+
+.pago-icono-banco{
+    background:#202020;
+}
+
 .pago-icono-mp{
-    background:#00a8e0;
-    font-size:17px;
+    background:#009ee3;
+}
+
+.pago-icono-mp svg{
+    width:36px;
+    height:36px;
+}
+
+.pago-icono-tarjeta{
+    background:#e32620;
 }
 
 .opcion-pago h3{
