@@ -272,6 +272,7 @@ button:hover{
     background:white;
     overflow:hidden;
     transform:none;
+    position:relative;
 }
 
 .card .miniatura:hover,
@@ -287,6 +288,43 @@ button:hover{
     object-fit:cover;
     border-radius:6px;
     grid-row:auto;
+}
+
+.card .miniatura-agotada img{
+    filter:grayscale(.35) brightness(.55);
+}
+
+.card .miniatura-agotada::before{
+    content:"×";
+    position:absolute;
+    inset:0;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#ff3b30;
+    font-family:Arial, sans-serif;
+    font-size:46px;
+    font-weight:900;
+    line-height:1;
+    text-shadow:0 1px 2px rgba(0,0,0,.35);
+}
+
+.card .miniatura-agotada::after{
+    content:"VENDIDO";
+    position:absolute;
+    z-index:3;
+    left:2px;
+    right:2px;
+    bottom:2px;
+    padding:2px 1px;
+    border-radius:4px;
+    background:rgba(17,17,17,.88);
+    color:white;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:.3px;
 }
 
 .card h3{
@@ -376,6 +414,32 @@ button:hover{
     background:#1ebe5d;
 }
 
+.estado-diseno{
+    display:none;
+    width:90%;
+    max-width:270px;
+    margin:10px auto 0;
+    color:#7a5600;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:14px;
+    font-weight:700;
+}
+
+.estado-diseno.visible{
+    display:block;
+}
+
+.card .btn-encargo{
+    border:2px solid #c79300;
+    background:white;
+    color:#9a7000;
+}
+
+.card .btn-encargo:hover{
+    background:#fff7d6;
+    color:#765500;
+}
+
 
 /* MEDIOS DE PAGO */
 
@@ -439,35 +503,9 @@ button:hover{
     font-weight:800;
 }
 
-.pago-icono svg{
-    width:30px;
-    height:30px;
-    fill:currentColor;
-}
-
-.pago-icono-banco{
-    background:#202020;
-}
-
 .pago-icono-mp{
-    width:76px;
-    background:transparent;
-}
-
-.pago-icono-mp img{
-    width:76px;
-    height:54px;
-    object-fit:contain;
-}
-
-.pago-icono-tarjeta{
-    width:68px;
-    background:transparent;
-}
-
-.pago-icono-tarjeta svg{
-    width:64px;
-    height:48px;
+    background:#00a8e0;
+    font-size:17px;
 }
 
 .opcion-pago h3{
@@ -481,6 +519,108 @@ button:hover{
     color:#666;
     font-family:"Segoe UI", Arial, sans-serif;
     font-size:14px;
+}
+
+
+/* OPINIÓN */
+
+.opinion{
+    max-width:720px;
+    margin:20px auto 50px;
+    padding:38px 28px;
+    box-sizing:border-box;
+    text-align:center;
+    background:white;
+    border-radius:18px;
+    box-shadow:0 8px 24px rgba(0,0,0,.12);
+}
+
+.opinion-etiqueta{
+    margin:0 0 8px;
+    color:#e32620;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.opinion h2{
+    margin:0;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:32px;
+}
+
+.opinion-texto{
+    margin:10px 0 24px;
+    color:#555;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:17px;
+}
+
+.opinion-opciones{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.opinion-opciones label{
+    cursor:pointer;
+}
+
+.opinion-opciones input{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+}
+
+.opinion-opciones span{
+    display:block;
+    padding:14px 12px;
+    border:2px solid #e2e2e2;
+    border-radius:12px;
+    background:#fafafa;
+    color:#222;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:16px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.opinion-opciones input:focus-visible + span,
+.opinion-opciones input:checked + span{
+    border-color:#ff3b30;
+    background:#fff1f0;
+    color:#b71c1c;
+}
+
+.opinion-comentario{
+    display:block;
+    margin-bottom:8px;
+    text-align:left;
+    color:#444;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:14px;
+    font-weight:700;
+}
+
+.opinion textarea{
+    width:100%;
+    padding:12px;
+    box-sizing:border-box;
+    resize:vertical;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font:16px/1.4 "Segoe UI", Arial, sans-serif;
+}
+
+.btn-opinion{
+    margin-top:16px;
+    background:#25D366;
+}
+
+.btn-opinion:hover{
+    background:#1ebe5d;
 }
 
 
@@ -646,5 +786,13 @@ footer p{
     .opciones-pago{
         grid-template-columns:1fr;
     }
-}
 
+    .opinion{
+        max-width:88%;
+        padding:30px 20px;
+    }
+
+    .opinion-opciones{
+        grid-template-columns:1fr;
+    }
+}

@@ -28,9 +28,7 @@ const disenosEstampados = [
     { nombre: "Collage azul 972", archivo: "13-collage-azul-972.png", talles: ["M", "XL"] },
     { nombre: "Collage amarillo 972", archivo: "14-collage-amarillo-972.png", talles: ["M", "XL"] },
     { nombre: "Hojas azules", archivo: "15-hojas-azules.png", talles: ["S", "M", "XL"] },
-    
-    { nombre: "Jaspeado blanco 980 — Código M980 4 B", archivo: "16-jaspeado-blanco-980-lody.png", talles: ["XL"] },
-    
+    { nombre: "Jaspeado blanco 980", codigo: "M980 4 B", archivo: "16-jaspeado-blanco-980-lody.png", talles: ["XL"], agotado: true, tallesPedido: ["S", "M", "L", "XL", "XXL"] },
     { nombre: "Geométrico azul 982", archivo: "19-geometrico-azul-982.png", talles: ["M", "L", "XL"] }
 ];
 
@@ -45,13 +43,17 @@ function iniciarGaleriaEstampados() {
     disenosEstampados.forEach(function(diseno, indice) {
         const opcion = document.createElement("option");
         opcion.value = indice;
-        opcion.textContent = diseno.nombre;
+        const detalleCodigo = diseno.codigo ? " — " + diseno.codigo : "";
+        opcion.textContent = diseno.nombre + detalleCodigo + (diseno.agotado ? " — AGOTADO" : "");
         selector.appendChild(opcion);
 
         const boton = document.createElement("button");
         boton.type = "button";
-        boton.className = "miniatura" + (indice === 0 ? " activa" : "");
+        boton.className = "miniatura" + (indice === 0 ? " activa" : "") + (diseno.agotado ? " miniatura-agotada" : "");
         boton.dataset.indice = indice;
+        if (diseno.agotado) {
+            boton.setAttribute("aria-label", diseno.nombre + ", vendido y disponible por encargo");
+        }
         boton.onclick = function() {
             selector.value = indice;
             cambiarDisenoEstampado();
@@ -72,17 +74,34 @@ function cambiarDisenoEstampado() {
     const diseno = disenosEstampados[indice];
     const imagen = document.getElementById("imagen-estampado");
     const selectorTalle = document.getElementById("talle-estampado");
+    const estado = document.getElementById("estado-estampado");
+    const botonComprar = document.getElementById("boton-estampado");
 
     imagen.src = rutaEstampados + diseno.archivo;
     imagen.alt = "Bóxer estampado " + diseno.nombre.toLowerCase();
-    selectorTalle.innerHTML = '<option value="">Seleccionar talle</option>';
+    selectorTalle.innerHTML = diseno.agotado
+        ? '<option value="">Seleccionar talle para encargar</option>'
+        : '<option value="">Seleccionar talle</option>';
 
-    diseno.talles.forEach(function(talle) {
+    const tallesMostrados = diseno.agotado ? diseno.tallesPedido : diseno.talles;
+    tallesMostrados.forEach(function(talle) {
         const opcion = document.createElement("option");
         opcion.value = talle;
-        opcion.textContent = talle;
+        opcion.textContent = diseno.agotado ? talle + " (por encargo)" : talle;
         selectorTalle.appendChild(opcion);
     });
+
+    if (diseno.agotado) {
+        estado.textContent = "Vendido · Disponible nuevamente por pedido";
+        estado.classList.add("visible");
+        botonComprar.textContent = "PEDIR POR ENCARGO";
+        botonComprar.classList.add("btn-encargo");
+    } else {
+        estado.textContent = "";
+        estado.classList.remove("visible");
+        botonComprar.textContent = "Comprar";
+        botonComprar.classList.remove("btn-encargo");
+    }
 
     document.querySelectorAll("#miniaturas-estampado .miniatura").forEach(function(miniatura) {
         miniatura.classList.toggle("activa", Number(miniatura.dataset.indice) === indice);
@@ -92,9 +111,15 @@ function cambiarDisenoEstampado() {
 function agregarProductoEstampado() {
     const indice = Number(document.getElementById("diseno-estampado").value || 0);
     const talle = document.getElementById("talle-estampado").value;
+    const diseno = disenosEstampados[indice];
 
     if (talle === "") {
         alert("Elegí un talle.");
+        return;
+    }
+
+    if (diseno.agotado) {
+        pedirPorEncargoEstampado(diseno, talle);
         return;
     }
 
@@ -102,11 +127,24 @@ function agregarProductoEstampado() {
         nombre: "Bóxer Estampado",
         precio: 15000,
         categoria: "Adulto",
-        color: disenosEstampados[indice].nombre,
+        color: diseno.nombre,
+        codigo: diseno.codigo || "",
         talle: talle
     });
 
     mostrarCarrito();
+}
+
+function pedirPorEncargoEstampado(diseno, talle) {
+    const mensaje =
+        "Hola MG Boxer! Quiero pedir por encargo:%0A%0A" +
+        "- Bóxer Estampado" +
+        "%0A- Diseño: " + encodeURIComponent(diseno.nombre) +
+        (diseno.codigo ? "%0A- Código: " + encodeURIComponent(diseno.codigo) : "") +
+        "%0A- Talle: " + encodeURIComponent(talle) +
+        "%0A%0A¿Me avisás cuándo estaría disponible?";
+
+    window.open("https://wa.me/542944322149?text=" + mensaje, "_blank");
 }
 
 document.addEventListener("DOMContentLoaded", iniciarGaleriaEstampados);
@@ -299,6 +337,10 @@ function enviarWhatsApp() {
             mensaje += " - Color " + producto.color;
         }
 
+        if (producto.codigo) {
+            mensaje += " - Código " + producto.codigo;
+        }
+
         mensaje +=
             " - $" +
             producto.precio.toLocaleString("es-AR") +
@@ -322,3 +364,20 @@ function enviarWhatsApp() {
     );
 }
 
+function enviarOpinion() {
+    const experiencia = document.querySelector('input[name="experiencia"]:checked');
+    const comentario = document.getElementById("comentario-opinion").value.trim();
+
+    if (!experiencia) {
+        alert("Elegí una opción para contarnos cómo fue tu experiencia.");
+        return;
+    }
+
+    let mensaje = "Hola MG Boxer! Quiero dejar una opinión sobre la página:%0A%0A";
+    mensaje += "- Experiencia: " + encodeURIComponent(experiencia.value);
+    if (comentario) {
+        mensaje += "%0A- Comentario: " + encodeURIComponent(comentario);
+    }
+
+    window.open("https://wa.me/542944322149?text=" + mensaje, "_blank");
+}
