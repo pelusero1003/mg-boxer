@@ -214,13 +214,6 @@ button:hover{
     transform:none;
 }
 
-.card-pack img,
-.card-pack:hover img{
-    object-fit:contain;
-    object-position:center;
-    transform:none;
-}
-
 .card-liso{
     grid-template-columns:480px 1fr;
 }
