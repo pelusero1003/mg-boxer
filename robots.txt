@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pelusero1003.github.io/mg-boxer/sitemap.xml
