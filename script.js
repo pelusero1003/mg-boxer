@@ -20,16 +20,16 @@ const disenosEstampados = [
     { nombre: "Tipográfico rojo", archivo: "05-tipografico-rojo.png", talles: ["L", "XL"] },
     { nombre: "Telarañas", archivo: "06-telaranas.png", talles: ["S"] },
     { nombre: "Floral naranja", archivo: "07-floral-naranja.png", talles: ["L"] },
-    { nombre: "Ondas azules", archivo: "08-ondas-azules.png", talles: ["S", "M", "L"] },
-    { nombre: "Ondas grises", archivo: "09-ondas-grises.png", talles: ["S", "M", "L"] },
-    { nombre: "Figuras amarillas", archivo: "10-figuras-amarillas.png", talles: ["L", "XL", "XXL"] },
-    { nombre: "Abstracto gris y azul", archivo: "11-abstracto-gris-azul.png", talles: ["L", "XL"] },
-    { nombre: "Panteras negras", archivo: "12-panteras-negras.png", talles: ["L", "XL"] },
-    { nombre: "Collage azul 972", archivo: "13-collage-azul-972.png", talles: ["M", "XL"] },
-    { nombre: "Collage amarillo 972", archivo: "14-collage-amarillo-972.png", talles: ["M", "XL"] },
+    { nombre: "Ondas azules", archivo: "08-ondas-azules.png", talles: ["L"], agotado: true, tallesPedido: ["S", "M", "L", "XL", "XXL"] },
+    { nombre: "Ondas grises", codigo: "M964 3 G", archivo: "09-ondas-grises.png", talles: ["L"], agotado: true, tallesPedido: ["S", "M", "L", "XL", "XXL"] },
+    { nombre: "Figuras amarillas", codigo: "M973 3 NG/AM", archivo: "10-figuras-amarillas.png", talles: ["L"] },
+    { nombre: "Abstracto gris y azul", codigo: "M958 3 NG", archivo: "11-abstracto-gris-azul.png", talles: ["L"], agotado: true, tallesPedido: ["S", "M", "L", "XL", "XXL"] },
+    { nombre: "Panteras negras", codigo: "M967 3 NG", archivo: "12-panteras-negras.png", talles: ["L"] },
+    { nombre: "Collage azul 972", codigo: "M972 2 AZ", archivo: "13-collage-azul-972.png", talles: ["M"] },
+    { nombre: "Collage amarillo 972", archivo: "14-collage-amarillo-972.png", talles: ["M"], agotado: true, tallesPedido: ["S", "M", "L", "XL", "XXL"] },
     { nombre: "Hojas azules", archivo: "15-hojas-azules.png", talles: ["S", "M", "XL"] },
     { nombre: "Jaspeado blanco 980", codigo: "M980 4 B", archivo: "16-jaspeado-blanco-980-lody.png", talles: ["XL"], agotado: true, tallesPedido: ["S", "M", "L", "XL", "XXL"] },
-    { nombre: "Geométrico azul 982", archivo: "19-geometrico-azul-982.png", talles: ["M", "L", "XL"] }
+    { nombre: "Geométrico azul 982", archivo: "19-geometrico-azul-982.png", talles: ["M", "L", "XL"], agotado: true, tallesPedido: ["S", "M", "L", "XL", "XXL"] }
 ];
 
 const rutaEstampados = "imagenes/Adulto/catalogo/estampados/";
