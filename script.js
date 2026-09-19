@@ -1,4 +1,78 @@
+const CLAVE_CARRITO = "mgboxer-carrito";
+const TELEFONO_WHATSAPP = "542944322149";
+
 let carrito = [];
+
+try {
+    carrito = JSON.parse(localStorage.getItem(CLAVE_CARRITO)) || [];
+} catch (e) {
+    carrito = [];
+}
+
+function guardarCarrito() {
+    try {
+        localStorage.setItem(CLAVE_CARRITO, JSON.stringify(carrito));
+    } catch (e) {}
+}
+
+let temporizadorAviso;
+
+function mostrarAviso(texto) {
+    const aviso = document.getElementById("aviso");
+    const textoAviso = document.getElementById("aviso-texto");
+    const contador = document.getElementById("contador");
+
+    if (!aviso || !textoAviso || !contador) return;
+
+    textoAviso.textContent = texto;
+    aviso.classList.add("visible");
+    contador.classList.remove("salto");
+    void contador.offsetWidth;
+    contador.classList.add("salto");
+
+    clearTimeout(temporizadorAviso);
+    temporizadorAviso = setTimeout(function() {
+        aviso.classList.remove("visible");
+    }, 3500);
+}
+
+function agregarAlCarrito(item) {
+    const existente = carrito.find(function(producto) {
+        return producto.nombre === item.nombre &&
+            producto.categoria === item.categoria &&
+            producto.color === item.color &&
+            (producto.codigo || "") === (item.codigo || "") &&
+            producto.talle === item.talle;
+    });
+
+    if (existente) {
+        existente.cantidad = (existente.cantidad || 1) + 1;
+    } else {
+        item.cantidad = 1;
+        carrito.push(item);
+    }
+
+    mostrarCarrito();
+    mostrarAviso(item.nombre + " agregado al carrito");
+}
+
+function textoDetalle(producto) {
+    let detalle = "";
+
+    if (producto.categoria && producto.talle) {
+        detalle += " · " + producto.categoria + " · Talle " + producto.talle;
+    }
+
+    if (producto.color) {
+        detalle += " · " + producto.color;
+    }
+
+    if (producto.codigo) {
+        detalle += " · Código " + producto.codigo;
+    }
+
+    return detalle;
+}
 
 const coloresLiso = {
     "Negro con cintura celeste": "imagenes/Adulto/catalogo/liso/boxer-liso-negro-celeste.png",
@@ -123,7 +197,7 @@ function agregarProductoEstampado() {
         return;
     }
 
-    carrito.push({
+    agregarAlCarrito({
         nombre: "Bóxer Estampado",
         precio: 15000,
         categoria: "Adulto",
@@ -131,8 +205,6 @@ function agregarProductoEstampado() {
         codigo: diseno.codigo || "",
         talle: talle
     });
-
-    mostrarCarrito();
 }
 
 function pedirPorEncargoEstampado(diseno, talle) {
@@ -176,15 +248,14 @@ function agregarProductoLiso() {
         return;
     }
 
-    carrito.push({
+    agregarAlCarrito({
         nombre: "Bóxer Liso",
         precio: 15000,
         categoria: "Adulto",
         color: color,
+        codigo: "",
         talle: talle
     });
-
-    mostrarCarrito();
 }
 
 function actualizarTalles(tipo) {
@@ -227,28 +298,26 @@ function agregarProductoConTalle(nombre, precio, tipo) {
         categoria = "Niño";
     }
 
-    carrito.push({
+    agregarAlCarrito({
         nombre: nombre,
         precio: precio,
         categoria: categoria,
         color: "",
+        codigo: "",
         talle: talle
     });
-
-    mostrarCarrito();
 }
 
 
 function agregarProducto(nombre, precio) {
-    carrito.push({
+    agregarAlCarrito({
         nombre: nombre,
         precio: precio,
         categoria: "",
         color: "",
+        codigo: "",
         talle: ""
     });
-
-    mostrarCarrito();
 }
 
 
@@ -260,44 +329,83 @@ function mostrarCarrito() {
     listaCarrito.innerHTML = "";
 
     let total = 0;
+    let unidades = 0;
 
     carrito.forEach(function(producto, indice) {
-        const productoCarrito = document.createElement("div");
+        if (!producto.cantidad) producto.cantidad = 1;
 
-        let detalles = "";
+        const fila = document.createElement("div");
+        fila.className = "fila-carrito";
 
-        if (producto.categoria !== "" && producto.talle !== "") {
-            detalles =
-                " - " +
-                producto.categoria +
-                " - Talle " +
-                producto.talle;
-        }
+        const informacion = document.createElement("div");
+        informacion.className = "producto-carrito-info";
 
-        if (producto.color) {
-            detalles += " - Color " + producto.color;
-        }
+        const nombre = document.createElement("strong");
+        nombre.textContent = producto.nombre;
 
-        productoCarrito.innerHTML = `
-            <p>
-                ${producto.nombre}
-                ${detalles}
-                - $${producto.precio.toLocaleString("es-AR")}
-                <button onclick="eliminarProducto(${indice})">X</button>
-            </p>
-        `;
+        const detalle = document.createElement("span");
+        detalle.textContent = textoDetalle(producto);
 
-        listaCarrito.appendChild(productoCarrito);
+        const subtotal = document.createElement("span");
+        subtotal.className = "subtotal-carrito";
+        subtotal.textContent = "$" + (producto.precio * producto.cantidad).toLocaleString("es-AR");
 
-        total += producto.precio;
+        informacion.append(nombre, detalle, subtotal);
+
+        const controles = document.createElement("div");
+        controles.className = "controles-carrito";
+
+        const menos = document.createElement("button");
+        menos.type = "button";
+        menos.className = "boton-cantidad";
+        menos.textContent = "−";
+        menos.setAttribute("aria-label", "Quitar una unidad");
+        menos.onclick = function() { cambiarCantidad(indice, -1); };
+
+        const cantidad = document.createElement("strong");
+        cantidad.className = "numero-cantidad";
+        cantidad.textContent = producto.cantidad;
+
+        const mas = document.createElement("button");
+        mas.type = "button";
+        mas.className = "boton-cantidad";
+        mas.textContent = "+";
+        mas.setAttribute("aria-label", "Agregar una unidad");
+        mas.onclick = function() { cambiarCantidad(indice, 1); };
+
+        const eliminar = document.createElement("button");
+        eliminar.type = "button";
+        eliminar.className = "boton-eliminar";
+        eliminar.textContent = "Eliminar";
+        eliminar.onclick = function() { eliminarProducto(indice); };
+
+        controles.append(menos, cantidad, mas, eliminar);
+        fila.append(informacion, controles);
+        listaCarrito.appendChild(fila);
+
+        total += producto.precio * producto.cantidad;
+        unidades += producto.cantidad;
     });
 
-    contador.textContent = carrito.length;
+    contador.textContent = unidades;
     totalElemento.textContent = total.toLocaleString("es-AR");
 
     if (carrito.length === 0) {
         listaCarrito.innerHTML = "<p>El carrito está vacío.</p>";
     }
+
+    guardarCarrito();
+}
+
+
+function cambiarCantidad(indice, cambio) {
+    carrito[indice].cantidad = (carrito[indice].cantidad || 1) + cambio;
+
+    if (carrito[indice].cantidad <= 0) {
+        carrito.splice(indice, 1);
+    }
+
+    mostrarCarrito();
 }
 
 
@@ -319,47 +427,24 @@ function enviarWhatsApp() {
         return;
     }
 
-    let mensaje = "Hola MG Boxer! Quiero hacer este pedido:%0A%0A";
+    let mensaje = "Hola MG Boxer! Quiero hacer este pedido:\n\n";
     let total = 0;
 
     carrito.forEach(function(producto) {
-        mensaje += "- " + producto.nombre;
-
-        if (producto.categoria !== "" && producto.talle !== "") {
-            mensaje +=
-                " - " +
-                producto.categoria +
-                " - Talle " +
-                producto.talle;
-        }
-
-        if (producto.color) {
-            mensaje += " - Color " + producto.color;
-        }
-
-        if (producto.codigo) {
-            mensaje += " - Código " + producto.codigo;
-        }
-
+        const cantidad = producto.cantidad || 1;
         mensaje +=
-            " - $" +
-            producto.precio.toLocaleString("es-AR") +
-            "%0A";
+            "- " + cantidad + " x " + producto.nombre +
+            textoDetalle(producto) +
+            " · $" + (producto.precio * cantidad).toLocaleString("es-AR") +
+            "\n";
 
-        total += producto.precio;
+        total += producto.precio * cantidad;
     });
 
-    mensaje +=
-        "%0ATotal: $" +
-        total.toLocaleString("es-AR");
-
-    const telefono = "+542944322149"; // Reemplazá con tu número de teléfono de WhatsApp
+    mensaje += "\nTotal: $" + total.toLocaleString("es-AR");
 
     window.open(
-        "https://wa.me/" +
-        telefono +
-        "?text=" +
-        mensaje,
+        "https://wa.me/" + TELEFONO_WHATSAPP + "?text=" + encodeURIComponent(mensaje),
         "_blank"
     );
 }
@@ -381,3 +466,5 @@ function enviarOpinion() {
 
     window.open("https://wa.me/542944322149?text=" + mensaje, "_blank");
 }
+
+document.addEventListener("DOMContentLoaded", mostrarCarrito);
