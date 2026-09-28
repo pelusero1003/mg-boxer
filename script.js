@@ -17,6 +17,42 @@ function guardarCarrito() {
 
 let temporizadorAviso;
 
+function abrirImagen(imagen) {
+    const modal = document.getElementById("modal-imagen");
+    const imagenModal = document.getElementById("imagen-modal");
+    const textoModal = document.getElementById("texto-imagen-modal");
+    const botonCerrar = modal.querySelector(".cerrar-modal");
+
+    imagenModal.src = imagen.src;
+    imagenModal.alt = imagen.alt;
+    textoModal.textContent = imagen.alt;
+    modal.classList.add("visible");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("sin-scroll");
+    botonCerrar.focus();
+}
+
+function cerrarImagen(evento) {
+    const modal = document.getElementById("modal-imagen");
+
+    if (evento && evento.target !== modal) return;
+
+    modal.classList.remove("visible");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("sin-scroll");
+}
+
+function manejarTeclaImagen(evento, imagen) {
+    if (evento.key === "Enter" || evento.key === " ") {
+        evento.preventDefault();
+        abrirImagen(imagen);
+    }
+}
+
+document.addEventListener("keydown", function(evento) {
+    if (evento.key === "Escape") cerrarImagen();
+});
+
 function mostrarAviso(texto) {
     const aviso = document.getElementById("aviso");
     const textoAviso = document.getElementById("aviso-texto");
@@ -86,6 +122,68 @@ const coloresLiso = {
     "Turquesa": "imagenes/Adulto/catalogo/liso/liso-turquesa.png"
 };
 
+const disenosNino = {
+    "Diseños surtidos": {
+        archivo: "imagenes/Niño/Talle 12/niño.png.png",
+        talles: ["12", "14", "16"]
+    },
+    "Camuflado azul": {
+        archivo: "imagenes/Niño/boxer-nino-camuflado-azul.png",
+        talles: ["12", "14"]
+    },
+    "Rayado celeste": {
+        archivo: "imagenes/Niño/boxer-nino-rayado-celeste.png",
+        talles: ["10", "12", "14"]
+    }
+};
+
+function seleccionarDisenoNino(diseno) {
+    const selector = document.getElementById("diseno-nino");
+    selector.value = diseno;
+    cambiarDisenoNino();
+}
+
+function cambiarDisenoNino() {
+    const nombre = document.getElementById("diseno-nino").value;
+    const diseno = disenosNino[nombre];
+    const imagen = document.getElementById("imagen-nino");
+    const selectorTalle = document.getElementById("talle-nino");
+
+    imagen.src = diseno.archivo;
+    imagen.alt = "Bóxer niño " + nombre.toLowerCase();
+    selectorTalle.innerHTML = '<option value="">Seleccionar talle</option>';
+
+    diseno.talles.forEach(function(talle) {
+        const opcion = document.createElement("option");
+        opcion.value = talle;
+        opcion.textContent = talle;
+        selectorTalle.appendChild(opcion);
+    });
+
+    document.querySelectorAll("#miniaturas-nino .miniatura").forEach(function(miniatura) {
+        miniatura.classList.toggle("activa", miniatura.dataset.diseno === nombre);
+    });
+}
+
+function agregarProductoNino() {
+    const diseno = document.getElementById("diseno-nino").value;
+    const talle = document.getElementById("talle-nino").value;
+
+    if (talle === "") {
+        alert("Elegí un talle.");
+        return;
+    }
+
+    agregarAlCarrito({
+        nombre: "Bóxer Niño",
+        precio: 12000,
+        categoria: "Niño",
+        color: diseno,
+        codigo: "",
+        talle: talle
+    });
+}
+
 const disenosEstampados = [
     { nombre: "Floral negro", archivo: "01-floral-negro.png", talles: ["S"] },
     { nombre: "Grafiti", archivo: "02-grafiti.png", talles: ["S"] },
@@ -115,6 +213,8 @@ function iniciarGaleriaEstampados() {
     if (!selector || !miniaturas) return;
 
     disenosEstampados.forEach(function(diseno, indice) {
+        if (diseno.agotado) return;
+
         const opcion = document.createElement("option");
         opcion.value = indice;
         const detalleCodigo = diseno.codigo ? " — " + diseno.codigo : "";
@@ -173,7 +273,7 @@ function cambiarDisenoEstampado() {
     } else {
         estado.textContent = "";
         estado.classList.remove("visible");
-        botonComprar.textContent = "Comprar";
+        botonComprar.textContent = "+ AGREGAR AL CARRITO";
         botonComprar.classList.remove("btn-encargo");
     }
 
