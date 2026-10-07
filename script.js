@@ -1,114 +1,4 @@
-const CLAVE_CARRITO = "mgboxer-carrito";
-const TELEFONO_WHATSAPP = "542944322149";
-
 let carrito = [];
-
-try {
-    carrito = JSON.parse(localStorage.getItem(CLAVE_CARRITO)) || [];
-} catch (e) {
-    carrito = [];
-}
-
-function guardarCarrito() {
-    try {
-        localStorage.setItem(CLAVE_CARRITO, JSON.stringify(carrito));
-    } catch (e) {}
-}
-
-let temporizadorAviso;
-
-function abrirImagen(imagen) {
-    const modal = document.getElementById("modal-imagen");
-    const imagenModal = document.getElementById("imagen-modal");
-    const textoModal = document.getElementById("texto-imagen-modal");
-    const botonCerrar = modal.querySelector(".cerrar-modal");
-
-    imagenModal.src = imagen.src;
-    imagenModal.alt = imagen.alt;
-    textoModal.textContent = imagen.alt;
-    modal.classList.add("visible");
-    modal.setAttribute("aria-hidden", "false");
-    document.body.classList.add("sin-scroll");
-    botonCerrar.focus();
-}
-
-function cerrarImagen(evento) {
-    const modal = document.getElementById("modal-imagen");
-
-    if (evento && evento.target !== modal) return;
-
-    modal.classList.remove("visible");
-    modal.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("sin-scroll");
-}
-
-function manejarTeclaImagen(evento, imagen) {
-    if (evento.key === "Enter" || evento.key === " ") {
-        evento.preventDefault();
-        abrirImagen(imagen);
-    }
-}
-
-document.addEventListener("keydown", function(evento) {
-    if (evento.key === "Escape") cerrarImagen();
-});
-
-function mostrarAviso(texto) {
-    const aviso = document.getElementById("aviso");
-    const textoAviso = document.getElementById("aviso-texto");
-    const contador = document.getElementById("contador");
-
-    if (!aviso || !textoAviso || !contador) return;
-
-    textoAviso.textContent = texto;
-    aviso.classList.add("visible");
-    contador.classList.remove("salto");
-    void contador.offsetWidth;
-    contador.classList.add("salto");
-
-    clearTimeout(temporizadorAviso);
-    temporizadorAviso = setTimeout(function() {
-        aviso.classList.remove("visible");
-    }, 3500);
-}
-
-function agregarAlCarrito(item) {
-    const existente = carrito.find(function(producto) {
-        return producto.nombre === item.nombre &&
-            producto.categoria === item.categoria &&
-            producto.color === item.color &&
-            (producto.codigo || "") === (item.codigo || "") &&
-            producto.talle === item.talle;
-    });
-
-    if (existente) {
-        existente.cantidad = (existente.cantidad || 1) + 1;
-    } else {
-        item.cantidad = 1;
-        carrito.push(item);
-    }
-
-    mostrarCarrito();
-    mostrarAviso(item.nombre + " agregado al carrito");
-}
-
-function textoDetalle(producto) {
-    let detalle = "";
-
-    if (producto.categoria && producto.talle) {
-        detalle += " · " + producto.categoria + " · Talle " + producto.talle;
-    }
-
-    if (producto.color) {
-        detalle += " · " + producto.color;
-    }
-
-    if (producto.codigo) {
-        detalle += " · Código " + producto.codigo;
-    }
-
-    return detalle;
-}
 
 const coloresLiso = {
     "Negro con cintura celeste": "imagenes/Adulto/catalogo/liso/boxer-liso-negro-celeste.png",
@@ -122,68 +12,6 @@ const coloresLiso = {
     "Turquesa": "imagenes/Adulto/catalogo/liso/liso-turquesa.png"
 };
 
-const disenosNino = {
-    "Diseños surtidos": {
-        archivo: "imagenes/Niño/Talle 12/niño.png.png",
-        talles: ["12", "14", "16"]
-    },
-    "Camuflado azul": {
-        archivo: "imagenes/Niño/boxer-nino-camuflado-azul.png",
-        talles: ["12", "14"]
-    },
-    "Rayado celeste": {
-        archivo: "imagenes/Niño/boxer-nino-rayado-celeste.png",
-        talles: ["10", "12", "14"]
-    }
-};
-
-function seleccionarDisenoNino(diseno) {
-    const selector = document.getElementById("diseno-nino");
-    selector.value = diseno;
-    cambiarDisenoNino();
-}
-
-function cambiarDisenoNino() {
-    const nombre = document.getElementById("diseno-nino").value;
-    const diseno = disenosNino[nombre];
-    const imagen = document.getElementById("imagen-nino");
-    const selectorTalle = document.getElementById("talle-nino");
-
-    imagen.src = diseno.archivo;
-    imagen.alt = "Bóxer niño " + nombre.toLowerCase();
-    selectorTalle.innerHTML = '<option value="">Seleccionar talle</option>';
-
-    diseno.talles.forEach(function(talle) {
-        const opcion = document.createElement("option");
-        opcion.value = talle;
-        opcion.textContent = talle;
-        selectorTalle.appendChild(opcion);
-    });
-
-    document.querySelectorAll("#miniaturas-nino .miniatura").forEach(function(miniatura) {
-        miniatura.classList.toggle("activa", miniatura.dataset.diseno === nombre);
-    });
-}
-
-function agregarProductoNino() {
-    const diseno = document.getElementById("diseno-nino").value;
-    const talle = document.getElementById("talle-nino").value;
-
-    if (talle === "") {
-        alert("Elegí un talle.");
-        return;
-    }
-
-    agregarAlCarrito({
-        nombre: "Bóxer Niño",
-        precio: 12000,
-        categoria: "Niño",
-        color: diseno,
-        codigo: "",
-        talle: talle
-    });
-}
-
 const disenosEstampados = [
     { nombre: "Floral negro", archivo: "01-floral-negro.png", talles: ["S"] },
     { nombre: "Grafiti", archivo: "02-grafiti.png", talles: ["S"] },
@@ -192,16 +20,18 @@ const disenosEstampados = [
     { nombre: "Tipográfico rojo", archivo: "05-tipografico-rojo.png", talles: ["L", "XL"] },
     { nombre: "Telarañas", archivo: "06-telaranas.png", talles: ["S"] },
     { nombre: "Floral naranja", archivo: "07-floral-naranja.png", talles: ["L"] },
-    { nombre: "Ondas azules", archivo: "08-ondas-azules.png", talles: ["L"], agotado: true, tallesPedido: ["S", "M", "L", "XL", "XXL"] },
-    { nombre: "Ondas grises", codigo: "M964 3 G", archivo: "09-ondas-grises.png", talles: ["L"], agotado: true, tallesPedido: ["S", "M", "L", "XL", "XXL"] },
-    { nombre: "Figuras amarillas", codigo: "M973 3 NG/AM", archivo: "10-figuras-amarillas.png", talles: ["L"] },
-    { nombre: "Abstracto gris y azul", codigo: "M958 3 NG", archivo: "11-abstracto-gris-azul.png", talles: ["L"], agotado: true, tallesPedido: ["S", "M", "L", "XL", "XXL"] },
-    { nombre: "Panteras negras", codigo: "M967 3 NG", archivo: "12-panteras-negras.png", talles: ["L"] },
-    { nombre: "Collage azul 972", codigo: "M972 2 AZ", archivo: "13-collage-azul-972.png", talles: ["M"] },
-    { nombre: "Collage amarillo 972", archivo: "14-collage-amarillo-972.png", talles: ["M"], agotado: true, tallesPedido: ["S", "M", "L", "XL", "XXL"] },
+    { nombre: "Ondas azules", archivo: "08-ondas-azules.png", talles: ["S", "M", "L"] },
+    { nombre: "Ondas grises", archivo: "09-ondas-grises.png", talles: ["S", "M", "L"] },
+    { nombre: "Figuras amarillas", archivo: "10-figuras-amarillas.png", talles: ["L", "XL", "XXL"] },
+    { nombre: "Abstracto gris y azul", archivo: "11-abstracto-gris-azul.png", talles: ["L", "XL"] },
+    { nombre: "Panteras negras", archivo: "12-panteras-negras.png", talles: ["L", "XL"] },
+    { nombre: "Collage azul 972", archivo: "13-collage-azul-972.png", talles: ["M", "XL"] },
+    { nombre: "Collage amarillo 972", archivo: "14-collage-amarillo-972.png", talles: ["M", "XL"] },
     { nombre: "Hojas azules", archivo: "15-hojas-azules.png", talles: ["S", "M", "XL"] },
-    { nombre: "Jaspeado blanco 980", codigo: "M980 4 B", archivo: "16-jaspeado-blanco-980-lody.png", talles: ["XL"], agotado: true, tallesPedido: ["S", "M", "L", "XL", "XXL"] },
-    { nombre: "Geométrico azul 982", archivo: "19-geometrico-azul-982.png", talles: ["M", "L", "XL"], agotado: true, tallesPedido: ["S", "M", "L", "XL", "XXL"] }
+    { nombre: "Jaspeado blanco 980", archivo: "16-jaspeado-blanco-980.png", talles: ["L"] },
+    { nombre: "Jaspeado azul 980", archivo: "17-jaspeado-azul-980.png", talles: ["XL"] },
+    { nombre: "Jaspeado negro 980", archivo: "18-jaspeado-negro-980.png", talles: ["XL"] },
+    { nombre: "Geométrico azul 982", archivo: "19-geometrico-azul-982.png", talles: ["M", "L", "XL"] }
 ];
 
 const rutaEstampados = "imagenes/Adulto/catalogo/estampados/";
@@ -213,21 +43,15 @@ function iniciarGaleriaEstampados() {
     if (!selector || !miniaturas) return;
 
     disenosEstampados.forEach(function(diseno, indice) {
-        if (diseno.agotado) return;
-
         const opcion = document.createElement("option");
         opcion.value = indice;
-        const detalleCodigo = diseno.codigo ? " — " + diseno.codigo : "";
-        opcion.textContent = diseno.nombre + detalleCodigo + (diseno.agotado ? " — AGOTADO" : "");
+        opcion.textContent = diseno.nombre;
         selector.appendChild(opcion);
 
         const boton = document.createElement("button");
         boton.type = "button";
-        boton.className = "miniatura" + (indice === 0 ? " activa" : "") + (diseno.agotado ? " miniatura-agotada" : "");
+        boton.className = "miniatura" + (indice === 0 ? " activa" : "");
         boton.dataset.indice = indice;
-        if (diseno.agotado) {
-            boton.setAttribute("aria-label", diseno.nombre + ", vendido y disponible por encargo");
-        }
         boton.onclick = function() {
             selector.value = indice;
             cambiarDisenoEstampado();
@@ -248,34 +72,17 @@ function cambiarDisenoEstampado() {
     const diseno = disenosEstampados[indice];
     const imagen = document.getElementById("imagen-estampado");
     const selectorTalle = document.getElementById("talle-estampado");
-    const estado = document.getElementById("estado-estampado");
-    const botonComprar = document.getElementById("boton-estampado");
 
     imagen.src = rutaEstampados + diseno.archivo;
     imagen.alt = "Bóxer estampado " + diseno.nombre.toLowerCase();
-    selectorTalle.innerHTML = diseno.agotado
-        ? '<option value="">Seleccionar talle para encargar</option>'
-        : '<option value="">Seleccionar talle</option>';
+    selectorTalle.innerHTML = '<option value="">Seleccionar talle</option>';
 
-    const tallesMostrados = diseno.agotado ? diseno.tallesPedido : diseno.talles;
-    tallesMostrados.forEach(function(talle) {
+    diseno.talles.forEach(function(talle) {
         const opcion = document.createElement("option");
         opcion.value = talle;
-        opcion.textContent = diseno.agotado ? talle + " (por encargo)" : talle;
+        opcion.textContent = talle;
         selectorTalle.appendChild(opcion);
     });
-
-    if (diseno.agotado) {
-        estado.textContent = "Vendido · Disponible nuevamente por pedido";
-        estado.classList.add("visible");
-        botonComprar.textContent = "PEDIR POR ENCARGO";
-        botonComprar.classList.add("btn-encargo");
-    } else {
-        estado.textContent = "";
-        estado.classList.remove("visible");
-        botonComprar.textContent = "+ AGREGAR AL CARRITO";
-        botonComprar.classList.remove("btn-encargo");
-    }
 
     document.querySelectorAll("#miniaturas-estampado .miniatura").forEach(function(miniatura) {
         miniatura.classList.toggle("activa", Number(miniatura.dataset.indice) === indice);
@@ -285,38 +92,21 @@ function cambiarDisenoEstampado() {
 function agregarProductoEstampado() {
     const indice = Number(document.getElementById("diseno-estampado").value || 0);
     const talle = document.getElementById("talle-estampado").value;
-    const diseno = disenosEstampados[indice];
 
     if (talle === "") {
         alert("Elegí un talle.");
         return;
     }
 
-    if (diseno.agotado) {
-        pedirPorEncargoEstampado(diseno, talle);
-        return;
-    }
-
-    agregarAlCarrito({
+    carrito.push({
         nombre: "Bóxer Estampado",
         precio: 15000,
         categoria: "Adulto",
-        color: diseno.nombre,
-        codigo: diseno.codigo || "",
+        color: disenosEstampados[indice].nombre,
         talle: talle
     });
-}
 
-function pedirPorEncargoEstampado(diseno, talle) {
-    const mensaje =
-        "Hola MG Boxer! Quiero pedir por encargo:%0A%0A" +
-        "- Bóxer Estampado" +
-        "%0A- Diseño: " + encodeURIComponent(diseno.nombre) +
-        (diseno.codigo ? "%0A- Código: " + encodeURIComponent(diseno.codigo) : "") +
-        "%0A- Talle: " + encodeURIComponent(talle) +
-        "%0A%0A¿Me avisás cuándo estaría disponible?";
-
-    window.open("https://wa.me/542944322149?text=" + mensaje, "_blank");
+    mostrarCarrito();
 }
 
 document.addEventListener("DOMContentLoaded", iniciarGaleriaEstampados);
@@ -348,14 +138,15 @@ function agregarProductoLiso() {
         return;
     }
 
-    agregarAlCarrito({
+    carrito.push({
         nombre: "Bóxer Liso",
         precio: 15000,
         categoria: "Adulto",
         color: color,
-        codigo: "",
         talle: talle
     });
+
+    mostrarCarrito();
 }
 
 function actualizarTalles(tipo) {
@@ -398,26 +189,28 @@ function agregarProductoConTalle(nombre, precio, tipo) {
         categoria = "Niño";
     }
 
-    agregarAlCarrito({
+    carrito.push({
         nombre: nombre,
         precio: precio,
         categoria: categoria,
         color: "",
-        codigo: "",
         talle: talle
     });
+
+    mostrarCarrito();
 }
 
 
 function agregarProducto(nombre, precio) {
-    agregarAlCarrito({
+    carrito.push({
         nombre: nombre,
         precio: precio,
         categoria: "",
         color: "",
-        codigo: "",
         talle: ""
     });
+
+    mostrarCarrito();
 }
 
 
@@ -429,83 +222,44 @@ function mostrarCarrito() {
     listaCarrito.innerHTML = "";
 
     let total = 0;
-    let unidades = 0;
 
     carrito.forEach(function(producto, indice) {
-        if (!producto.cantidad) producto.cantidad = 1;
+        const productoCarrito = document.createElement("div");
 
-        const fila = document.createElement("div");
-        fila.className = "fila-carrito";
+        let detalles = "";
 
-        const informacion = document.createElement("div");
-        informacion.className = "producto-carrito-info";
+        if (producto.categoria !== "" && producto.talle !== "") {
+            detalles =
+                " - " +
+                producto.categoria +
+                " - Talle " +
+                producto.talle;
+        }
 
-        const nombre = document.createElement("strong");
-        nombre.textContent = producto.nombre;
+        if (producto.color) {
+            detalles += " - Color " + producto.color;
+        }
 
-        const detalle = document.createElement("span");
-        detalle.textContent = textoDetalle(producto);
+        productoCarrito.innerHTML = `
+            <p>
+                ${producto.nombre}
+                ${detalles}
+                - $${producto.precio.toLocaleString("es-AR")}
+                <button onclick="eliminarProducto(${indice})">X</button>
+            </p>
+        `;
 
-        const subtotal = document.createElement("span");
-        subtotal.className = "subtotal-carrito";
-        subtotal.textContent = "$" + (producto.precio * producto.cantidad).toLocaleString("es-AR");
+        listaCarrito.appendChild(productoCarrito);
 
-        informacion.append(nombre, detalle, subtotal);
-
-        const controles = document.createElement("div");
-        controles.className = "controles-carrito";
-
-        const menos = document.createElement("button");
-        menos.type = "button";
-        menos.className = "boton-cantidad";
-        menos.textContent = "−";
-        menos.setAttribute("aria-label", "Quitar una unidad");
-        menos.onclick = function() { cambiarCantidad(indice, -1); };
-
-        const cantidad = document.createElement("strong");
-        cantidad.className = "numero-cantidad";
-        cantidad.textContent = producto.cantidad;
-
-        const mas = document.createElement("button");
-        mas.type = "button";
-        mas.className = "boton-cantidad";
-        mas.textContent = "+";
-        mas.setAttribute("aria-label", "Agregar una unidad");
-        mas.onclick = function() { cambiarCantidad(indice, 1); };
-
-        const eliminar = document.createElement("button");
-        eliminar.type = "button";
-        eliminar.className = "boton-eliminar";
-        eliminar.textContent = "Eliminar";
-        eliminar.onclick = function() { eliminarProducto(indice); };
-
-        controles.append(menos, cantidad, mas, eliminar);
-        fila.append(informacion, controles);
-        listaCarrito.appendChild(fila);
-
-        total += producto.precio * producto.cantidad;
-        unidades += producto.cantidad;
+        total += producto.precio;
     });
 
-    contador.textContent = unidades;
+    contador.textContent = carrito.length;
     totalElemento.textContent = total.toLocaleString("es-AR");
 
     if (carrito.length === 0) {
         listaCarrito.innerHTML = "<p>El carrito está vacío.</p>";
     }
-
-    guardarCarrito();
-}
-
-
-function cambiarCantidad(indice, cambio) {
-    carrito[indice].cantidad = (carrito[indice].cantidad || 1) + cambio;
-
-    if (carrito[indice].cantidad <= 0) {
-        carrito.splice(indice, 1);
-    }
-
-    mostrarCarrito();
 }
 
 
@@ -527,44 +281,43 @@ function enviarWhatsApp() {
         return;
     }
 
-    let mensaje = "Hola MG Boxer! Quiero hacer este pedido:\n\n";
+    let mensaje = "Hola MG Boxer! Quiero hacer este pedido:%0A%0A";
     let total = 0;
 
     carrito.forEach(function(producto) {
-        const cantidad = producto.cantidad || 1;
-        mensaje +=
-            "- " + cantidad + " x " + producto.nombre +
-            textoDetalle(producto) +
-            " · $" + (producto.precio * cantidad).toLocaleString("es-AR") +
-            "\n";
+        mensaje += "- " + producto.nombre;
 
-        total += producto.precio * cantidad;
+        if (producto.categoria !== "" && producto.talle !== "") {
+            mensaje +=
+                " - " +
+                producto.categoria +
+                " - Talle " +
+                producto.talle;
+        }
+
+        if (producto.color) {
+            mensaje += " - Color " + producto.color;
+        }
+
+        mensaje +=
+            " - $" +
+            producto.precio.toLocaleString("es-AR") +
+            "%0A";
+
+        total += producto.precio;
     });
 
-    mensaje += "\nTotal: $" + total.toLocaleString("es-AR");
+    mensaje +=
+        "%0ATotal: $" +
+        total.toLocaleString("es-AR");
+
+    const telefono = "+542944322149"; // Reemplazá con tu número de teléfono de WhatsApp
 
     window.open(
-        "https://wa.me/" + TELEFONO_WHATSAPP + "?text=" + encodeURIComponent(mensaje),
+        "https://wa.me/" +
+        telefono +
+        "?text=" +
+        mensaje,
         "_blank"
     );
 }
-
-function enviarOpinion() {
-    const experiencia = document.querySelector('input[name="experiencia"]:checked');
-    const comentario = document.getElementById("comentario-opinion").value.trim();
-
-    if (!experiencia) {
-        alert("Elegí una opción para contarnos cómo fue tu experiencia.");
-        return;
-    }
-
-    let mensaje = "Hola MG Boxer! Quiero dejar una opinión sobre la página:%0A%0A";
-    mensaje += "- Experiencia: " + encodeURIComponent(experiencia.value);
-    if (comentario) {
-        mensaje += "%0A- Comentario: " + encodeURIComponent(comentario);
-    }
-
-    window.open("https://wa.me/542944322149?text=" + mensaje, "_blank");
-}
-
-document.addEventListener("DOMContentLoaded", mostrarCarrito);
