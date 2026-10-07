@@ -150,8 +150,20 @@ button:hover{
 /* CATÁLOGO */
 
 .catalogo{
-    padding:50px 20px 20px;
+    padding:64px 20px 24px;
     text-align:center;
+    background:
+        radial-gradient(circle at top left, rgba(255,59,48,.09), transparent 34%),
+        linear-gradient(180deg, #fff 0%, #f4f4f4 100%);
+}
+
+.catalogo-etiqueta{
+    margin:0 0 8px;
+    color:#e32620;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:13px;
+    font-weight:900;
+    letter-spacing:2.2px;
 }
 
 .catalogo h2{
@@ -167,7 +179,133 @@ button:hover{
     font-family:"Segoe UI", Arial, sans-serif;
     font-weight:400;
     color:#555;
-    margin-bottom:10px;
+    margin:0 auto 22px;
+    max-width:680px;
+}
+
+.catalogo-beneficios{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    max-width:900px;
+    margin:0 auto 18px;
+}
+
+.catalogo-beneficios span{
+    padding:9px 14px;
+    border:1px solid #dedede;
+    border-radius:999px;
+    background:white;
+    color:#333;
+    font:700 13px/1.2 "Segoe UI", Arial, sans-serif;
+    box-shadow:0 3px 10px rgba(0,0,0,.06);
+}
+
+.entrega-moto{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:13px;
+    width:min(620px, calc(100% - 30px));
+    margin:0 auto 20px;
+    padding:13px 18px;
+    box-sizing:border-box;
+    border:1px solid rgba(227,38,32,.22);
+    border-radius:14px;
+    background:linear-gradient(135deg, #fff 0%, #fff3f2 100%);
+    color:#222;
+    text-align:left;
+    box-shadow:0 6px 16px rgba(0,0,0,.07);
+}
+
+.entrega-moto-icono{
+    flex:0 0 auto;
+    font-size:34px;
+    line-height:1;
+}
+
+.entrega-moto strong{
+    display:block;
+    margin-bottom:3px;
+    font:900 15px/1.2 "Segoe UI", Arial, sans-serif;
+}
+
+.entrega-moto p{
+    margin:0;
+    color:#666;
+    font:13px/1.35 "Segoe UI", Arial, sans-serif;
+}
+
+.herramientas-catalogo{
+    width:min(760px, 100%);
+    margin:0 auto 18px;
+}
+
+.buscador-catalogo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:5px 16px;
+    border:2px solid #dedede;
+    border-radius:14px;
+    background:white;
+    box-shadow:0 6px 18px rgba(0,0,0,.07);
+}
+
+.buscador-catalogo:focus-within{
+    border-color:#e32620;
+    box-shadow:0 0 0 4px rgba(227,38,32,.1);
+}
+
+.buscador-catalogo span{
+    color:#e32620;
+    font:900 27px/1 "Segoe UI", Arial, sans-serif;
+}
+
+.buscador-catalogo input{
+    width:100%;
+    padding:11px 0;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:#222;
+    font:16px/1.2 "Segoe UI", Arial, sans-serif;
+}
+
+.filtros-catalogo{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:12px auto 0;
+}
+
+.filtros-catalogo .filtro-catalogo{
+    min-width:108px;
+    padding:11px 18px;
+    border-radius:10px;
+    border:1px solid #d8d8d8;
+    background:white;
+    color:#333;
+    font:800 14px/1 "Segoe UI", Arial, sans-serif;
+    transition:.2s;
+    box-shadow:none;
+}
+
+.filtros-catalogo .filtro-catalogo:hover,
+.filtros-catalogo .filtro-catalogo.activo{
+    background:#e32620;
+    border-color:#e32620;
+    color:white;
+    transform:translateY(-2px);
+}
+
+.resultado-busqueda{
+    min-height:18px;
+    margin:8px 0 0;
+    color:#666;
+    font:700 12px/1.4 "Segoe UI", Arial, sans-serif;
 }
 
 .productos{
@@ -195,7 +333,13 @@ button:hover{
     grid-template-columns:320px 1fr;
     align-items:center;
     box-sizing:border-box;
-    padding:0 28px 0 0;
+    padding:0;
+    scroll-margin-top:90px;
+    border:1px solid rgba(0,0,0,.06);
+}
+
+.card[hidden]{
+    display:none !important;
 }
 
 .card:hover{
@@ -214,11 +358,22 @@ button:hover{
     transform:none;
 }
 
-.card-pack img,
-.card-pack:hover img{
+.producto-imagen-simple{
+    position:relative;
+    height:100%;
+    min-height:330px;
+    overflow:hidden;
+    padding:18px;
+    box-sizing:border-box;
+    background:#f3f3f3;
+}
+
+.producto-imagen-simple img{
+    height:100%;
+    min-height:330px;
     object-fit:contain;
-    object-position:center;
-    transform:none;
+    border-radius:12px;
+    background:white;
 }
 
 .card-liso{
@@ -226,6 +381,7 @@ button:hover{
 }
 
 .galeria-producto{
+    position:relative;
     height:500px;
     display:flex;
     flex-direction:column;
@@ -234,6 +390,91 @@ button:hover{
     box-sizing:border-box;
     background:#f3f3f3;
     grid-row:1 / span 8;
+}
+
+.imagen-ampliable{
+    cursor:zoom-in;
+}
+
+.imagen-ampliable:focus-visible{
+    outline:4px solid rgba(227,38,32,.55);
+    outline-offset:-4px;
+}
+
+.pista-ampliar{
+    position:absolute;
+    top:20px;
+    right:20px;
+    z-index:4;
+    padding:8px 11px;
+    border-radius:999px;
+    background:rgba(17,17,17,.82);
+    color:white;
+    font:800 12px/1 "Segoe UI", Arial, sans-serif;
+    pointer-events:none;
+    box-shadow:0 4px 12px rgba(0,0,0,.22);
+}
+
+.modal-imagen{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:22px;
+    box-sizing:border-box;
+    background:rgba(0,0,0,.9);
+}
+
+.modal-imagen.visible{
+    display:flex;
+}
+
+.modal-imagen-contenido{
+    position:relative;
+    width:min(920px, 96vw);
+    max-height:94vh;
+    padding:16px 16px 12px;
+    box-sizing:border-box;
+    border-radius:18px;
+    background:white;
+    box-shadow:0 24px 70px rgba(0,0,0,.55);
+}
+
+.modal-imagen-contenido img{
+    display:block;
+    width:100%;
+    max-height:80vh;
+    object-fit:contain;
+    border-radius:12px;
+    background:#f3f3f3;
+}
+
+.modal-imagen-contenido p{
+    margin:10px 48px 0 6px;
+    color:#333;
+    font:700 14px/1.3 "Segoe UI", Arial, sans-serif;
+}
+
+.cerrar-modal{
+    position:absolute;
+    top:24px;
+    right:24px;
+    z-index:2;
+    width:44px;
+    height:44px;
+    border:0;
+    border-radius:50%;
+    background:#111;
+    color:white;
+    font:400 32px/40px Arial, sans-serif;
+    cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.3);
+}
+
+.sin-scroll{
+    overflow:hidden;
 }
 
 .card .imagen-principal{
@@ -272,6 +513,7 @@ button:hover{
     background:white;
     overflow:hidden;
     transform:none;
+    position:relative;
 }
 
 .card .miniatura:hover,
@@ -289,27 +531,252 @@ button:hover{
     grid-row:auto;
 }
 
+.card .miniatura-agotada img{
+    filter:grayscale(.35) brightness(.55);
+}
+
+.card .miniatura-agotada::before{
+    content:"×";
+    position:absolute;
+    inset:0;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#ff3b30;
+    font-family:Arial, sans-serif;
+    font-size:46px;
+    font-weight:900;
+    line-height:1;
+    text-shadow:0 1px 2px rgba(0,0,0,.35);
+}
+
+.card .miniatura-agotada::after{
+    content:"VENDIDO";
+    position:absolute;
+    z-index:3;
+    left:2px;
+    right:2px;
+    bottom:2px;
+    padding:2px 1px;
+    border-radius:4px;
+    background:rgba(17,17,17,.88);
+    color:white;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:.3px;
+}
+
 .card h3{
-    margin:15px 10px 10px;
+    margin:4px 0 8px;
+    color:#111;
+    font:900 32px/1.05 "Segoe UI", Arial, sans-serif;
+    letter-spacing:-.8px;
+}
+
+.producto-info{
+    padding:28px 34px;
+    text-align:left;
+}
+
+.producto-categoria{
+    margin:0 0 9px;
+    color:#e32620;
+    font:900 12px/1.2 "Segoe UI", Arial, sans-serif;
+    letter-spacing:1.5px;
 }
 
 .descripcion{
-    font-size:14px;
-    color:#666;
-    padding:0 15px;
-    min-height:40px;
+    margin:0 0 14px;
+    padding:0;
+    min-height:0;
+    color:#555;
+    font:16px/1.45 "Segoe UI", Arial, sans-serif;
+}
+
+.producto-destacados{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin:0 0 18px;
+}
+
+.producto-destacados span{
+    padding:7px 10px;
+    border-radius:8px;
+    background:#f0f0f0;
+    color:#333;
+    font:700 12px/1 "Segoe UI", Arial, sans-serif;
 }
 
 .precio{
-    font-size:22px;
-    font-weight:bold;
-    margin:12px 0;
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    margin:8px 0 18px;
+    color:#111;
+    font:900 30px/1 "Segoe UI", Arial, sans-serif;
+}
+
+.precio small{
+    color:#777;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.disponibilidad{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    width:max-content;
+    max-width:100%;
+    margin:-8px 0 16px;
+    padding:7px 10px;
+    box-sizing:border-box;
+    border-radius:8px;
+    background:#eaf8ee;
+    color:#176b35;
+    font:800 12px/1.25 "Segoe UI", Arial, sans-serif;
+}
+
+.disponibilidad span{
+    width:8px;
+    height:8px;
+    flex:0 0 auto;
+    border-radius:50%;
+    background:#28a957;
+    box-shadow:0 0 0 3px rgba(40,169,87,.14);
 }
 
 .talles{
-    font-size:13px;
-    color:#777;
-    margin-bottom:15px;
+    margin:0 0 10px;
+    color:#444;
+    font:800 14px/1.3 "Segoe UI", Arial, sans-serif;
+}
+
+.talles-disponibles{
+    margin:0 0 14px;
+}
+
+.talles-disponibles > strong{
+    display:block;
+    margin-bottom:7px;
+    color:#333;
+    font:800 12px/1.2 "Segoe UI", Arial, sans-serif;
+}
+
+.chips-talles{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+}
+
+.chips-talles span{
+    min-width:34px;
+    padding:7px 9px;
+    box-sizing:border-box;
+    border:1px solid #d8d8d8;
+    border-radius:8px;
+    background:white;
+    color:#222;
+    text-align:center;
+    font:900 12px/1 "Segoe UI", Arial, sans-serif;
+}
+
+.codigo-producto{
+    width:max-content;
+    margin:-7px 0 12px;
+    padding:7px 10px;
+    border-radius:7px;
+    background:#222;
+    color:white;
+    font:800 12px/1.2 "Segoe UI", Arial, sans-serif;
+}
+
+.sin-resultados{
+    max-width:650px;
+    margin:18px auto 28px;
+    padding:18px;
+    border:1px dashed #bbb;
+    border-radius:12px;
+    background:white;
+    color:#555;
+    font:700 15px/1.4 "Segoe UI", Arial, sans-serif;
+}
+
+.como-comprar{
+    max-width:920px;
+    margin:34px auto 8px;
+    padding:30px;
+    box-sizing:border-box;
+    border-radius:20px;
+    background:#171717;
+    color:white;
+    box-shadow:0 14px 30px rgba(0,0,0,.16);
+}
+
+.como-comprar-etiqueta{
+    margin:0 0 7px;
+    color:#ff4b43;
+    font:900 12px/1.2 "Segoe UI", Arial, sans-serif;
+    letter-spacing:1.8px;
+}
+
+.como-comprar h2{
+    margin:0 0 22px;
+    color:white;
+    font-size:30px;
+}
+
+.pasos-compra{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:12px;
+}
+
+.paso-compra{
+    padding:18px 15px;
+    border:1px solid #383838;
+    border-radius:14px;
+    background:#222;
+}
+
+.paso-compra span{
+    display:grid;
+    place-items:center;
+    width:34px;
+    height:34px;
+    margin:0 auto 10px;
+    border-radius:50%;
+    background:#e32620;
+    color:white;
+    font:900 15px/1 "Segoe UI", Arial, sans-serif;
+}
+
+.paso-compra strong{
+    display:block;
+    margin-bottom:5px;
+    font:900 16px/1.2 "Segoe UI", Arial, sans-serif;
+}
+
+.paso-compra p{
+    margin:0;
+    color:#cfcfcf;
+    font:13px/1.4 "Segoe UI", Arial, sans-serif;
+}
+
+.boton-como-comprar{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 22px;
+    border-radius:10px;
+    background:#e32620;
+    color:white;
+    text-decoration:none;
+    font:900 14px/1 "Segoe UI", Arial, sans-serif;
 }
 
 
@@ -317,21 +784,121 @@ button:hover{
 
 .card select{
     display:block;
-    width:90%;
-    max-width:220px;
-    margin:8px auto;
-    padding:9px 10px;
+    width:100%;
+    max-width:none;
+    margin:6px 0 13px;
+    padding:12px 13px;
     border:1px solid #ccc;
-    border-radius:8px;
+    border-radius:10px;
     background:white;
-    font-size:14px;
+    font-size:15px;
     cursor:pointer;
 }
 
-.card button{
+.card select:focus{
+    outline:3px solid rgba(227,38,32,.16);
+    border-color:#e32620;
+}
+
+.selector-label{
     display:block;
-    margin:14px auto 5px;
-    padding:10px 22px;
+    margin-top:8px;
+    color:#333;
+    font:800 13px/1.2 "Segoe UI", Arial, sans-serif;
+}
+
+.ayuda-talle{
+    margin:4px 0 12px;
+    color:#777;
+    font:13px/1.4 "Segoe UI", Arial, sans-serif;
+}
+
+.guia-talles{
+    margin:2px 0 12px;
+    border:1px solid #dedede;
+    border-radius:10px;
+    background:#fafafa;
+    overflow:hidden;
+}
+
+.guia-talles summary{
+    padding:11px 13px;
+    color:#333;
+    font:800 13px/1.25 "Segoe UI", Arial, sans-serif;
+    cursor:pointer;
+    list-style-position:inside;
+}
+
+.guia-talles[open] summary{
+    border-bottom:1px solid #e3e3e3;
+    background:white;
+}
+
+.guia-talles-contenido{
+    padding:12px 13px 13px;
+}
+
+.guia-talles-contenido p{
+    margin:0 0 10px;
+    color:#666;
+    font:12px/1.4 "Segoe UI", Arial, sans-serif;
+}
+
+.tabla-talles{
+    display:grid;
+    grid-template-columns:.8fr 1.4fr;
+    border:1px solid #ddd;
+    border-radius:8px;
+    overflow:hidden;
+    background:white;
+}
+
+.tabla-talles > *{
+    padding:7px 9px;
+    border-bottom:1px solid #ececec;
+    color:#333;
+    font:12px/1.2 "Segoe UI", Arial, sans-serif;
+}
+
+.tabla-talles > :nth-last-child(-n+2){
+    border-bottom:0;
+}
+
+.tabla-talles > :nth-child(odd){
+    border-right:1px solid #ececec;
+}
+
+.tabla-talles > :nth-child(-n+2){
+    background:#222;
+    color:white;
+    font-weight:800;
+}
+
+.guia-talles-contenido small{
+    display:block;
+    margin-top:8px;
+    color:#777;
+    font:11px/1.3 "Segoe UI", Arial, sans-serif;
+}
+
+.card .btn-agregar{
+    display:block;
+    width:100%;
+    margin:14px 0 0;
+    padding:14px 18px;
+    border:0;
+    border-radius:10px;
+    background:#e32620;
+    color:white;
+    font:900 14px/1 "Segoe UI", Arial, sans-serif;
+    letter-spacing:.4px;
+    cursor:pointer;
+    box-shadow:0 8px 16px rgba(227,38,32,.22);
+}
+
+.card .btn-agregar:hover{
+    background:#bd1712;
+    transform:translateY(-1px);
 }
 
 
@@ -373,6 +940,334 @@ button:hover{
 }
 
 .btn-pedido:hover{
+    background:#1ebe5d;
+}
+
+.carrito{
+    width:560px;
+}
+
+.fila-carrito{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:18px;
+    padding:14px 4px;
+    border-bottom:1px solid #e3e3e3;
+    text-align:left;
+}
+
+.producto-carrito-info{
+    display:flex;
+    flex:1;
+    flex-direction:column;
+    gap:4px;
+    min-width:0;
+    font-size:13px;
+    color:#555;
+}
+
+.producto-carrito-info strong{
+    color:#111;
+    font-size:15px;
+}
+
+.subtotal-carrito{
+    color:#111;
+    font-weight:800;
+}
+
+.controles-carrito{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    flex:none;
+}
+
+.controles-carrito .boton-cantidad{
+    width:32px;
+    height:32px;
+    margin:0;
+    padding:0;
+    border-radius:50%;
+    font-size:18px;
+}
+
+.numero-cantidad{
+    min-width:22px;
+    text-align:center;
+}
+
+.controles-carrito .boton-eliminar{
+    margin:0 0 0 5px;
+    padding:7px 10px;
+    background:#f1f1f1;
+    color:#b51f19;
+    font-size:12px;
+}
+
+.controles-carrito .boton-eliminar:hover{
+    background:#ffe5e3;
+}
+
+
+/* AVISO AL AGREGAR */
+
+.aviso{
+    position:fixed;
+    left:50%;
+    bottom:24px;
+    transform:translate(-50%, 30px);
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    max-width:90%;
+    padding:12px 18px;
+    border-radius:10px;
+    background:#111;
+    color:white;
+    box-shadow:0 8px 24px rgba(0,0,0,.35);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s, transform .25s;
+}
+
+.aviso.visible{
+    opacity:1;
+    transform:translate(-50%, 0);
+    pointer-events:auto;
+}
+
+.aviso a{
+    color:#ff6b61;
+    font-weight:bold;
+    text-decoration:none;
+    white-space:nowrap;
+}
+
+.carrito-menu #contador.salto{
+    animation:salto .4s;
+}
+
+@keyframes salto{
+    40%{ transform:scale(1.5); }
+}
+
+@media (prefers-reduced-motion: reduce){
+    .aviso,
+    .carrito-menu #contador.salto{
+        transition:none;
+        animation:none;
+    }
+}
+
+.estado-diseno{
+    display:none;
+    width:90%;
+    max-width:270px;
+    margin:10px auto 0;
+    color:#7a5600;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:14px;
+    font-weight:700;
+}
+
+.estado-diseno.visible{
+    display:block;
+}
+
+.card .btn-encargo{
+    border:2px solid #c79300;
+    background:white;
+    color:#9a7000;
+}
+
+.card .btn-encargo:hover{
+    background:#fff7d6;
+    color:#765500;
+}
+
+
+/* MEDIOS DE PAGO */
+
+.medios-pago{
+    max-width:900px;
+    margin:20px auto 50px;
+    padding:38px 24px;
+    text-align:center;
+    background:white;
+    border-radius:18px;
+    box-shadow:0 8px 24px rgba(0,0,0,.12);
+}
+
+.medios-pago-etiqueta{
+    margin:0 0 8px;
+    color:#e32620;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.medios-pago h2{
+    margin:0;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:34px;
+}
+
+.medios-pago-texto{
+    margin:10px 0 26px;
+    color:#555;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:17px;
+}
+
+.opciones-pago{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+}
+
+.opcion-pago{
+    padding:22px 14px;
+    border:1px solid #e5e5e5;
+    border-radius:14px;
+    background:#fafafa;
+}
+
+.pago-icono{
+    width:54px;
+    height:54px;
+    margin:0 auto 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:#111;
+    color:white;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:25px;
+    font-weight:800;
+}
+
+.pago-icono-mp{
+    background:#00a8e0;
+    font-size:17px;
+}
+
+.opcion-pago h3{
+    margin:0 0 6px;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:19px;
+}
+
+.opcion-pago p{
+    margin:0;
+    color:#666;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:14px;
+}
+
+
+/* OPINIÓN */
+
+.opinion{
+    max-width:720px;
+    margin:20px auto 50px;
+    padding:38px 28px;
+    box-sizing:border-box;
+    text-align:center;
+    background:white;
+    border-radius:18px;
+    box-shadow:0 8px 24px rgba(0,0,0,.12);
+}
+
+.opinion-etiqueta{
+    margin:0 0 8px;
+    color:#e32620;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.opinion h2{
+    margin:0;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:32px;
+}
+
+.opinion-texto{
+    margin:10px 0 24px;
+    color:#555;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:17px;
+}
+
+.opinion-opciones{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.opinion-opciones label{
+    cursor:pointer;
+}
+
+.opinion-opciones input{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+}
+
+.opinion-opciones span{
+    display:block;
+    padding:14px 12px;
+    border:2px solid #e2e2e2;
+    border-radius:12px;
+    background:#fafafa;
+    color:#222;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:16px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.opinion-opciones input:focus-visible + span,
+.opinion-opciones input:checked + span{
+    border-color:#ff3b30;
+    background:#fff1f0;
+    color:#b71c1c;
+}
+
+.opinion-comentario{
+    display:block;
+    margin-bottom:8px;
+    text-align:left;
+    color:#444;
+    font-family:"Segoe UI", Arial, sans-serif;
+    font-size:14px;
+    font-weight:700;
+}
+
+.opinion textarea{
+    width:100%;
+    padding:12px;
+    box-sizing:border-box;
+    resize:vertical;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font:16px/1.4 "Segoe UI", Arial, sans-serif;
+}
+
+.btn-opinion{
+    margin-top:16px;
+    background:#25D366;
+}
+
+.btn-opinion:hover{
     background:#1ebe5d;
 }
 
@@ -450,6 +1345,52 @@ footer p{
 
 @media(max-width:700px){
 
+    .catalogo{
+        padding:46px 12px 20px;
+    }
+
+    .catalogo h2{
+        font-size:34px;
+    }
+
+    .catalogo-texto{
+        font-size:17px;
+    }
+
+    .catalogo-beneficios{
+        gap:7px;
+    }
+
+    .catalogo-beneficios span{
+        padding:8px 10px;
+        font-size:11px;
+    }
+
+    .filtros-catalogo{
+        display:grid;
+        grid-template-columns:repeat(2, 1fr);
+        gap:6px;
+    }
+
+    .filtros-catalogo .filtro-catalogo{
+        min-width:0;
+        padding:10px 7px;
+        font-size:12px;
+    }
+
+    .buscador-catalogo input{
+        font-size:14px;
+    }
+
+    .como-comprar{
+        margin:24px 3px 8px;
+        padding:24px 16px;
+    }
+
+    .pasos-compra{
+        grid-template-columns:1fr;
+    }
+
     header{
         padding:15px 20px;
         flex-direction:column;
@@ -491,7 +1432,7 @@ footer p{
         width:100%;
         max-width:300px;
         display:block;
-        padding:0 0 18px;
+        padding:0;
     }
 
     .card:hover{
@@ -501,6 +1442,62 @@ footer p{
     .card img{
         height:280px;
         min-height:0;
+    }
+
+    .producto-imagen-simple{
+        height:280px;
+        min-height:0;
+        padding:10px;
+    }
+
+    .producto-imagen-simple img{
+        height:280px;
+        min-height:0;
+    }
+
+    .pista-ampliar{
+        top:16px;
+        right:16px;
+        font-size:11px;
+    }
+
+    .modal-imagen{
+        padding:10px;
+    }
+
+    .modal-imagen-contenido{
+        width:100%;
+        padding:10px 10px 12px;
+    }
+
+    .modal-imagen-contenido img{
+        max-height:76vh;
+    }
+
+    .cerrar-modal{
+        top:18px;
+        right:18px;
+    }
+
+    .producto-info{
+        padding:24px 20px 26px;
+    }
+
+    .entrega-moto{
+        align-items:flex-start;
+        padding:12px 14px;
+    }
+
+    .entrega-moto-icono{
+        font-size:28px;
+    }
+
+    .card h3{
+        font-size:28px;
+    }
+
+    .precio{
+        font-size:28px;
     }
 
     .galeria-producto{
@@ -529,5 +1526,38 @@ footer p{
 
     .card .miniatura img{
         height:100%;
+    }
+
+    .medios-pago{
+        max-width:82%;
+        padding:30px 20px;
+    }
+
+    .opciones-pago{
+        grid-template-columns:1fr;
+    }
+
+    .opinion{
+        max-width:88%;
+        padding:30px 20px;
+    }
+
+    .opinion-opciones{
+        grid-template-columns:1fr;
+    }
+
+    .carrito{
+        width:auto;
+        max-width:82%;
+    }
+
+    .fila-carrito{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .controles-carrito{
+        width:100%;
+        justify-content:flex-end;
     }
 }

@@ -4,8 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MG Boxer</title>
-    <link rel="stylesheet" href="style.css">
+    <title>MG Boxer | Bóxers Lody en Bariloche</title>
+    <meta name="description" content="Comprá bóxers Lody para hombre y niño en MG Boxer, Bariloche. Modelos lisos y estampados, talles variados y pedidos por WhatsApp.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://pelusero1003.github.io/mg-boxer/">
+
+    <meta property="og:locale" content="es_AR">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MG Boxer | Bóxers Lody en Bariloche">
+    <meta property="og:description" content="Bóxers Lody para hombre y niño. Modelos lisos y estampados, talles variados y pedidos por WhatsApp.">
+    <meta property="og:url" content="https://pelusero1003.github.io/mg-boxer/">
+    <meta property="og:image" content="https://pelusero1003.github.io/mg-boxer/imagenes/Adulto/catalogo/liso/boxer-liso-negro-celeste.png">
+    <meta property="og:site_name" content="MG Boxer">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MG Boxer | Bóxers Lody en Bariloche">
+    <meta name="twitter:description" content="Bóxers Lody para hombre y niño. Modelos lisos y estampados, talles variados y pedidos por WhatsApp.">
+    <meta name="twitter:image" content="https://pelusero1003.github.io/mg-boxer/imagenes/Adulto/catalogo/liso/boxer-liso-negro-celeste.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "OnlineStore",
+        "name": "MG Boxer",
+        "url": "https://pelusero1003.github.io/mg-boxer/",
+        "description": "Venta de bóxers Lody para hombre y niño en Bariloche.",
+        "image": "https://pelusero1003.github.io/mg-boxer/imagenes/Adulto/catalogo/liso/boxer-liso-negro-celeste.png",
+        "telephone": "+54 294 432-2149",
+        "areaServed": {
+            "@type": "City",
+            "name": "San Carlos de Bariloche"
+        },
+        "sameAs": [
+            "https://www.facebook.com/profile.php?id=61555936224606",
+            "https://www.instagram.com/mgboxerbariloche/"
+        ]
+    }
+    </script>
+    <link rel="stylesheet" href="style.css?v=20261007-1">
 </head>
 
 <body>
@@ -19,6 +55,8 @@
         <nav>
             <a href="#inicio">Inicio</a>
             <a href="#catalogo">Catálogo</a>
+            <a href="#medios-pago">Pagos</a>
+            <a href="#opinion">Opinión</a>
             <a href="#contacto">Contacto</a>
 
             <a href="#carrito" class="carrito-menu">
@@ -60,210 +98,251 @@
 
     <section class="catalogo" id="catalogo">
 
-    <h2>Nuestros productos</h2>
+        <p class="catalogo-etiqueta">CATÁLOGO MG BOXER</p>
+        <h2>Elegí tu próximo bóxer</h2>
+        <p class="catalogo-texto">Modelos cómodos, talles variados y compra directa por WhatsApp.</p>
 
-    <p class="catalogo-texto">
-        Elegí el modelo que más te guste.
-    </p>
-
-    <div class="productos">
-
-
-        <!-- BÓXER NIÑO -->
-
-        <div class="card">
-
-            <img
-                src="imagenes/Niño/Talle 12/niño.png.png"
-                alt="Bóxer Niño Lody"
-            >
-
-            <h3>Bóxer Niño</h3>
-
-            <p class="descripcion">
-                Diseños divertidos y cómodos para todos los días.
-            </p>
-
-            <p class="precio">$15.000</p>
-
-            <p class="talles">Elegí talle:</p>                       
-            
-
-            <select id="talle-nino">
-                <option value="">Seleccionar talle</option>
-                <option value="12">12</option>
-                <option value="14">14</option>
-                <option value="16">16</option>
-            </select>
-
-            <button
-                onclick="agregarProductoConTalle(
-                    'Bóxer Niño',
-                    15000,
-                    'nino'
-                )"
-            >
-                Comprar
-            </button>
-
+        <div class="catalogo-beneficios" aria-label="Beneficios de compra">
+            <span>✓ Atención personalizada</span>
+            <span>✓ Entrega en Bariloche</span>
+            <span>✓ Pago fácil y seguro</span>
         </div>
 
+        <div class="entrega-moto" aria-label="Entrega rápida en moto">
+            <span class="entrega-moto-icono" aria-hidden="true">🛵</span>
+            <div>
+                <strong>Entrega rápida en moto en Bariloche</strong>
+                <p>Coordinamos día y horario. Consultá el costo según tu zona.</p>
+            </div>
+        </div>
 
-        <!-- BÓXER LISO -->
+        <div class="herramientas-catalogo">
+            <label class="buscador-catalogo" for="buscar-producto">
+                <span aria-hidden="true">⌕</span>
+                <input id="buscar-producto" type="search" placeholder="Buscar modelo, color o código" autocomplete="off">
+            </label>
 
-        <div class="card card-liso">
+            <div class="filtros-catalogo" role="group" aria-label="Filtrar productos">
+                <button type="button" class="filtro-catalogo activo" data-filtro="todos">Todos</button>
+                <button type="button" class="filtro-catalogo" data-filtro="nino">Niños</button>
+                <button type="button" class="filtro-catalogo" data-filtro="liso">Lisos</button>
+                <button type="button" class="filtro-catalogo" data-filtro="estampado">Estampados</button>
+            </div>
+            <p id="resultado-busqueda" class="resultado-busqueda" aria-live="polite"></p>
+        </div>
 
-            <div class="galeria-producto">
-                <div class="miniaturas" id="miniaturas-liso">
-                    <button type="button" class="miniatura activa" data-color="Negro con cintura celeste" onclick="seleccionarColorLiso('Negro con cintura celeste')">
-                        <img src="imagenes/Adulto/catalogo/liso/boxer-liso-negro-celeste.png" alt="Negro con cintura celeste">
-                    </button>
-                    <button type="button" class="miniatura" data-color="Negro con cintura fucsia" onclick="seleccionarColorLiso('Negro con cintura fucsia')">
-                        <img src="imagenes/Adulto/catalogo/liso/liso-negro-cintura-fucsia.png" alt="Negro con cintura fucsia">
-                    </button>
-                    <button type="button" class="miniatura" data-color="Negro con cintura gris" onclick="seleccionarColorLiso('Negro con cintura gris')">
-                        <img src="imagenes/Adulto/catalogo/liso/liso-negro-cintura-gris.png" alt="Negro con cintura gris">
-                    </button>
-                    <button type="button" class="miniatura" data-color="Gris claro" onclick="seleccionarColorLiso('Gris claro')">
-                        <img src="imagenes/Adulto/catalogo/liso/liso-gris-claro.png" alt="Gris claro">
-                    </button>
-                    <button type="button" class="miniatura" data-color="Azul marino" onclick="seleccionarColorLiso('Azul marino')">
-                        <img src="imagenes/Adulto/catalogo/liso/liso-azul-marino.png" alt="Azul marino">
-                    </button>
-                    <button type="button" class="miniatura" data-color="Azul marino con cintura fucsia" onclick="seleccionarColorLiso('Azul marino con cintura fucsia')">
-                        <img src="imagenes/Adulto/catalogo/liso/liso-azul-marino-cintura-fucsia.png" alt="Azul marino con cintura fucsia">
-                    </button>
-                    <button type="button" class="miniatura" data-color="Azul intenso" onclick="seleccionarColorLiso('Azul intenso')">
-                        <img src="imagenes/Adulto/catalogo/liso/liso-azul-intenso.png" alt="Azul intenso">
-                    </button>
-                    <button type="button" class="miniatura" data-color="Celeste" onclick="seleccionarColorLiso('Celeste')">
-                        <img src="imagenes/Adulto/catalogo/liso/liso-celeste.png" alt="Celeste">
-                    </button>
-                    <button type="button" class="miniatura" data-color="Turquesa" onclick="seleccionarColorLiso('Turquesa')">
-                        <img src="imagenes/Adulto/catalogo/liso/liso-turquesa.png" alt="Turquesa">
-                    </button>
+        <div class="productos">
+
+            <!-- BÓXER NIÑO -->
+            <article class="card card-liso card-nino" id="boxer-nino" data-categoria="nino">
+                <div class="galeria-producto">
+                    <div class="miniaturas miniaturas-nino" id="miniaturas-nino">
+                        <button type="button" class="miniatura activa" data-diseno="Diseños surtidos" onclick="seleccionarDisenoNino('Diseños surtidos')"><img src="imagenes/Niño/Talle 12/niño.png.png" alt="Diseños surtidos"></button>
+                        <button type="button" class="miniatura" data-diseno="Camuflado azul" onclick="seleccionarDisenoNino('Camuflado azul')"><img src="imagenes/Niño/boxer-nino-camuflado-azul.png" alt="Camuflado azul"></button>
+                        <button type="button" class="miniatura" data-diseno="Rayado celeste" onclick="seleccionarDisenoNino('Rayado celeste')"><img src="imagenes/Niño/boxer-nino-rayado-celeste.png" alt="Rayado celeste"></button>
+                    </div>
+                    <img id="imagen-nino" class="imagen-principal imagen-ampliable" src="imagenes/Niño/Talle 12/niño.png.png" alt="Bóxer niño diseños surtidos" role="button" tabindex="0" aria-label="Ampliar imagen del bóxer para niño" onclick="abrirImagen(this)" onkeydown="manejarTeclaImagen(event, this)">
+                    <span class="pista-ampliar">🔍 Tocá para ampliar</span>
                 </div>
 
-                <img
-                    id="imagen-liso"
-                    class="imagen-principal"
-                    src="imagenes/Adulto/catalogo/liso/boxer-liso-negro-celeste.png"
-                    alt="Bóxer liso negro con cintura celeste"
-                >
+                <div class="producto-info">
+                    <p class="producto-categoria">NIÑOS · COMODIDAD DIARIA</p>
+                    <h3>Bóxer Niño</h3>
+                    <p class="descripcion">Diseños divertidos y cómodos para todos los días.</p>
+
+                    <div class="producto-destacados">
+                        <span>Suave</span>
+                        <span>Cómodo</span>
+                        <span>Talles 12 al 16</span>
+                    </div>
+
+                    <p class="precio"><small>Precio final</small>$12.000</p>
+                    <p class="disponibilidad"><span aria-hidden="true"></span> Disponible para entrega inmediata</p>
+                    <div class="talles-disponibles" aria-label="Talles disponibles">
+                        <strong>Talles disponibles</strong>
+                        <div id="talles-nino-visibles" class="chips-talles"></div>
+                    </div>
+                    <p class="talles">Elegí diseño y talle disponible:</p>
+
+                    <label class="selector-label" for="diseno-nino">Diseño</label>
+                    <select id="diseno-nino" onchange="cambiarDisenoNino()">
+                        <option value="Diseños surtidos">Diseños surtidos</option>
+                        <option value="Camuflado azul">Camuflado azul</option>
+                        <option value="Rayado celeste">Rayado celeste</option>
+                    </select>
+
+                    <label class="selector-label" for="talle-nino">Talle</label>
+                    <select id="talle-nino">
+                        <option value="">Seleccionar talle</option>
+                        <option value="12">12</option>
+                        <option value="14">14</option>
+                        <option value="16">16</option>
+                    </select>
+
+                    <p class="ayuda-talle">¿Tenés dudas con el talle infantil? Te asesoramos por WhatsApp.</p>
+                    <button class="btn-agregar" onclick="agregarProductoNino()">
+                        + AGREGAR AL CARRITO
+                    </button>
+                </div>
+            </article>
+
+            <!-- BÓXER LISO -->
+            <article class="card card-liso" id="boxer-liso" data-categoria="liso">
+                <div class="galeria-producto">
+                    <div class="miniaturas" id="miniaturas-liso">
+                        <button type="button" class="miniatura activa" data-color="Negro con cintura celeste" onclick="seleccionarColorLiso('Negro con cintura celeste')"><img src="imagenes/Adulto/catalogo/liso/boxer-liso-negro-celeste.png" alt="Negro con cintura celeste"></button>
+                        <button type="button" class="miniatura" data-color="Negro con cintura fucsia" onclick="seleccionarColorLiso('Negro con cintura fucsia')"><img src="imagenes/Adulto/catalogo/liso/liso-negro-cintura-fucsia.png" alt="Negro con cintura fucsia"></button>
+                        <button type="button" class="miniatura" data-color="Negro con cintura gris" onclick="seleccionarColorLiso('Negro con cintura gris')"><img src="imagenes/Adulto/catalogo/liso/liso-negro-cintura-gris.png" alt="Negro con cintura gris"></button>
+                        <button type="button" class="miniatura" data-color="Gris claro" onclick="seleccionarColorLiso('Gris claro')"><img src="imagenes/Adulto/catalogo/liso/liso-gris-claro.png" alt="Gris claro"></button>
+                        <button type="button" class="miniatura" data-color="Azul marino" onclick="seleccionarColorLiso('Azul marino')"><img src="imagenes/Adulto/catalogo/liso/liso-azul-marino.png" alt="Azul marino"></button>
+                        <button type="button" class="miniatura" data-color="Azul marino con cintura fucsia" onclick="seleccionarColorLiso('Azul marino con cintura fucsia')"><img src="imagenes/Adulto/catalogo/liso/liso-azul-marino-cintura-fucsia.png" alt="Azul marino con cintura fucsia"></button>
+                        <button type="button" class="miniatura" data-color="Azul intenso" onclick="seleccionarColorLiso('Azul intenso')"><img src="imagenes/Adulto/catalogo/liso/liso-azul-intenso.png" alt="Azul intenso"></button>
+                        <button type="button" class="miniatura" data-color="Celeste" onclick="seleccionarColorLiso('Celeste')"><img src="imagenes/Adulto/catalogo/liso/liso-celeste.png" alt="Celeste"></button>
+                        <button type="button" class="miniatura" data-color="Turquesa" onclick="seleccionarColorLiso('Turquesa')"><img src="imagenes/Adulto/catalogo/liso/liso-turquesa.png" alt="Turquesa"></button>
+                    </div>
+
+                    <img id="imagen-liso" class="imagen-principal imagen-ampliable" src="imagenes/Adulto/catalogo/liso/boxer-liso-negro-celeste.png" alt="Bóxer liso negro con cintura celeste" role="button" tabindex="0" aria-label="Ampliar imagen del bóxer liso" onclick="abrirImagen(this)" onkeydown="manejarTeclaImagen(event, this)">
+                    <span class="pista-ampliar">🔍 Tocá para ampliar</span>
+                </div>
+
+                <div class="producto-info">
+                    <p class="producto-categoria">ADULTO · LÍNEA LISA</p>
+                    <h3>Bóxer Liso</h3>
+                    <p class="descripcion">Clásico, cómodo y fácil de combinar.</p>
+
+                    <div class="producto-destacados">
+                        <span>9 colores</span>
+                        <span>Cintura firme</span>
+                        <span>Talles S al XXL</span>
+                    </div>
+
+                    <p class="precio"><small>Precio final</small>$15.000</p>
+                    <p class="disponibilidad"><span aria-hidden="true"></span> Disponible para entrega inmediata</p>
+                    <div class="talles-disponibles" aria-label="Talles disponibles">
+                        <strong>Talles disponibles</strong>
+                        <div class="chips-talles">
+                            <span>S</span><span>M</span><span>L</span><span>XL</span><span>XXL</span>
+                        </div>
+                    </div>
+                    <p class="talles">Elegí color y talle:</p>
+
+                    <label class="selector-label" for="color-liso">Color</label>
+                    <select id="color-liso" onchange="cambiarColorLiso()">
+                        <option value="Negro con cintura celeste">Negro con cintura celeste</option>
+                        <option value="Negro con cintura fucsia">Negro con cintura fucsia</option>
+                        <option value="Negro con cintura gris">Negro con cintura gris</option>
+                        <option value="Gris claro">Gris claro</option>
+                        <option value="Azul marino">Azul marino</option>
+                        <option value="Azul marino con cintura fucsia">Azul marino con cintura fucsia</option>
+                        <option value="Azul intenso">Azul intenso</option>
+                        <option value="Celeste">Celeste</option>
+                        <option value="Turquesa">Turquesa</option>
+                    </select>
+
+                    <label class="selector-label" for="talle-liso">Talle</label>
+                    <select id="talle-liso">
+                        <option value="">Seleccionar talle</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+
+                    <details class="guia-talles">
+                        <summary>📏 Ver guía de talles Lody</summary>
+                        <div class="guia-talles-contenido">
+                            <p>Medí la cintura del bóxer apoyado, de lado a lado y sin estirar.</p>
+                            <div class="tabla-talles" role="table" aria-label="Guía de talles Lody para hombre">
+                                <span role="columnheader">Talle</span><span role="columnheader">Media cintura</span>
+                                <strong role="cell">S</strong><span role="cell">35,5 cm</span>
+                                <strong role="cell">M</strong><span role="cell">37,5 cm</span>
+                                <strong role="cell">L</strong><span role="cell">39,5 cm</span>
+                                <strong role="cell">XL</strong><span role="cell">41,5 cm</span>
+                                <strong role="cell">XXL</strong><span role="cell">42,5 cm</span>
+                            </div>
+                            <small>Medidas oficiales de la guía Lody Men.</small>
+                        </div>
+                    </details>
+
+                    <p class="ayuda-talle">Elegí una miniatura para ver el color en grande.</p>
+                    <button class="btn-agregar" onclick="agregarProductoLiso()">+ AGREGAR AL CARRITO</button>
+                </div>
+            </article>
+
+            <!-- BÓXER ESTAMPADO -->
+            <article class="card card-liso card-estampado" id="boxer-estampado" data-categoria="estampado">
+                <div class="galeria-producto">
+                    <div class="miniaturas" id="miniaturas-estampado"></div>
+                    <img id="imagen-estampado" class="imagen-principal imagen-ampliable" src="imagenes/Adulto/catalogo/estampados/01-floral-negro.png" alt="Bóxer estampado floral negro" role="button" tabindex="0" aria-label="Ampliar imagen del bóxer estampado" onclick="abrirImagen(this)" onkeydown="manejarTeclaImagen(event, this)">
+                    <span class="pista-ampliar">🔍 Tocá para ampliar</span>
+                </div>
+
+                <div class="producto-info">
+                    <p class="producto-categoria">ADULTO · DISEÑOS EXCLUSIVOS</p>
+                    <h3>Bóxer Estampado</h3>
+                    <p class="descripcion">Diseños variados y cómodos para todos los días.</p>
+
+                    <div class="producto-destacados">
+                        <span>Diseños variados</span>
+                        <span>Stock actualizado</span>
+                        <span>Solo modelos disponibles</span>
+                    </div>
+
+                    <p class="precio"><small>Precio final</small>$15.000</p>
+                    <p class="disponibilidad"><span aria-hidden="true"></span> Disponible para entrega inmediata</p>
+                    <p id="codigo-estampado" class="codigo-producto" hidden></p>
+                    <div class="talles-disponibles" aria-label="Talles disponibles">
+                        <strong>Talles disponibles</strong>
+                        <div id="talles-estampado-visibles" class="chips-talles"></div>
+                    </div>
+                    <p class="talles">Elegí diseño y talle disponible:</p>
+
+                    <label class="selector-label" for="diseno-estampado">Diseño</label>
+                    <select id="diseno-estampado" onchange="cambiarDisenoEstampado()"></select>
+
+                    <label class="selector-label" for="talle-estampado">Talle disponible</label>
+                    <select id="talle-estampado">
+                        <option value="">Seleccionar talle</option>
+                    </select>
+
+                    <details class="guia-talles">
+                        <summary>📏 Ver guía de talles Lody</summary>
+                        <div class="guia-talles-contenido">
+                            <p>Medí la cintura del bóxer apoyado, de lado a lado y sin estirar.</p>
+                            <div class="tabla-talles" role="table" aria-label="Guía de talles Lody para hombre">
+                                <span role="columnheader">Talle</span><span role="columnheader">Media cintura</span>
+                                <strong role="cell">S</strong><span role="cell">35,5 cm</span>
+                                <strong role="cell">M</strong><span role="cell">37,5 cm</span>
+                                <strong role="cell">L</strong><span role="cell">39,5 cm</span>
+                                <strong role="cell">XL</strong><span role="cell">41,5 cm</span>
+                                <strong role="cell">XXL</strong><span role="cell">42,5 cm</span>
+                            </div>
+                            <small>Medidas oficiales de la guía Lody Men.</small>
+                        </div>
+                    </details>
+
+                    <p id="estado-estampado" class="estado-diseno" aria-live="polite"></p>
+                    <button class="btn-agregar" id="boton-estampado" onclick="agregarProductoEstampado()">+ AGREGAR AL CARRITO</button>
+                </div>
+            </article>
+
+        </div>
+
+        <p id="sin-resultados" class="sin-resultados" hidden>No encontramos ese modelo. Probá con otro nombre, color o código.</p>
+
+        <section class="como-comprar" aria-labelledby="titulo-como-comprar">
+            <p class="como-comprar-etiqueta">COMPRA SIMPLE Y DIRECTA</p>
+            <h2 id="titulo-como-comprar">¿Cómo comprar?</h2>
+            <div class="pasos-compra">
+                <div class="paso-compra"><span>1</span><strong>Elegí</strong><p>Seleccioná el modelo, diseño y talle.</p></div>
+                <div class="paso-compra"><span>2</span><strong>Agregá</strong><p>Sumalo al carrito y revisá tu pedido.</p></div>
+                <div class="paso-compra"><span>3</span><strong>Coordinamos</strong><p>Envialo por WhatsApp y acordamos la entrega.</p></div>
             </div>
+            <a class="boton-como-comprar" href="#carrito">Ver mi carrito</a>
+        </section>
 
-            <h3>Bóxer Liso</h3>
-
-            <p class="descripcion">
-                Clásico, cómodo y fácil de combinar.
-            </p>
-
-            <p class="precio">$15.000</p>
-
-            <p class="talles">Elegí color y talle:</p>
-
-            <select id="color-liso" onchange="cambiarColorLiso()">
-                <option value="Negro con cintura celeste">Negro con cintura celeste</option>
-                <option value="Negro con cintura fucsia">Negro con cintura fucsia</option>
-                <option value="Negro con cintura gris">Negro con cintura gris</option>
-                <option value="Gris claro">Gris claro</option>
-                <option value="Azul marino">Azul marino</option>
-                <option value="Azul marino con cintura fucsia">Azul marino con cintura fucsia</option>
-                <option value="Azul intenso">Azul intenso</option>
-                <option value="Celeste">Celeste</option>
-                <option value="Turquesa">Turquesa</option>
-            </select>
-
-            <select id="talle-liso">
-                <option value="">Seleccionar talle</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-                <option value="XXL">XXL</option>
-</select>
-
-            <button
-                onclick="agregarProductoLiso()"
-            >
-                Comprar
-            </button>
-
-        </div>
-
-
-        <!-- BÓXER ESTAMPADO -->
-
-        <div class="card card-liso card-estampado">
-
-            <div class="galeria-producto">
-                <div class="miniaturas" id="miniaturas-estampado"></div>
-
-                <img
-                    id="imagen-estampado"
-                    class="imagen-principal"
-                    src="imagenes/Adulto/catalogo/estampados/01-floral-negro.png"
-                    alt="Bóxer estampado floral negro"
-                >
-            </div>
-
-            <h3>Bóxer Estampado</h3>
-
-            <p class="descripcion">
-                Diseños variados y cómodos para todos los días.
-            </p>
-
-            <p class="precio">$15.000</p>
-
-            <p class="talles">Elegí diseño y talle disponible:</p>
-
-            <select id="diseno-estampado" onchange="cambiarDisenoEstampado()">
-            </select>
-
-            <select id="talle-estampado">
-                <option value="">Seleccionar talle</option>
-            </select>
-
-            <button
-                onclick="agregarProductoEstampado()"
-            >
-                Comprar
-            </button>
-
-        </div>
-
-
-        <!-- PACK X2 -->
-
-        <div class="card card-pack">
-
-            <img
-                src="imagenes/Pack x2/Pack x2.png.png"
-                alt="Pack x2"
-            >
-
-            <h3>Pack x2</h3>
-
-            <p class="descripcion">
-                Elegí dos bóxers y aprovechá la promoción.
-            </p>
-
-            <p class="precio">$28.000</p>
-
-            <p class="talles">
-                Elegí los talles al confirmar el pedido.
-            </p>
-
-            <button onclick="agregarProducto('Pack x2', 28000)">
-                Comprar
-            </button>
-
-        </div>
-
-
-    </div>
-
-</section>
+    </section>
 
 
     <!-- CARRITO -->
@@ -294,6 +373,59 @@
     </section>
 
 
+    <!-- MEDIOS DE PAGO -->
+
+    <section class="medios-pago" id="medios-pago">
+        <p class="medios-pago-etiqueta">COMPRÁ COMO PREFIERAS</p>
+        <h2>Medios de pago</h2>
+        <p class="medios-pago-texto">Elegí la opción que te resulte más cómoda.</p>
+
+        <div class="opciones-pago">
+            <div class="opcion-pago">
+                <span class="pago-icono" aria-hidden="true">↔</span>
+                <h3>Transferencia</h3>
+                <p>Transferencia bancaria</p>
+            </div>
+
+            <div class="opcion-pago">
+                <span class="pago-icono pago-icono-mp" aria-hidden="true">MP</span>
+                <h3>Mercado Pago</h3>
+                <p>Pagá desde tu cuenta</p>
+            </div>
+
+            <div class="opcion-pago">
+                <span class="pago-icono" aria-hidden="true">▰</span>
+                <h3>Tarjetas</h3>
+                <p>Crédito o débito</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- OPINIÓN -->
+
+    <section class="opinion" id="opinion">
+        <p class="opinion-etiqueta">TU EXPERIENCIA NOS IMPORTA</p>
+        <h2>¿Te resultó fácil comprar?</h2>
+        <p class="opinion-texto">Tu opinión nos ayuda a mejorar MG Boxer.</p>
+
+        <div class="opinion-opciones" role="radiogroup" aria-label="¿Te resultó fácil comprar?">
+            <label>
+                <input type="radio" name="experiencia" value="Sí, muy fácil">
+                <span>👍 Sí, muy fácil</span>
+            </label>
+            <label>
+                <input type="radio" name="experiencia" value="Podría mejorar">
+                <span>💬 Podría mejorar</span>
+            </label>
+        </div>
+
+        <label class="opinion-comentario" for="comentario-opinion">Comentario opcional</label>
+        <textarea id="comentario-opinion" rows="3" maxlength="300" placeholder="Contanos brevemente cómo fue tu experiencia"></textarea>
+        <button class="btn-opinion" onclick="enviarOpinion()">Enviar opinión por WhatsApp</button>
+    </section>
+
+
     <!-- CONTACTO -->
 
     <footer id="contacto">
@@ -313,7 +445,7 @@
 
             <a
                 class="red-social instagram"
-                href="https://www.instagram.com/estiloparatodosss/"
+                href="https://www.instagram.com/mgboxerbariloche/"
                 target="_blank"
                 rel="noopener noreferrer"
             >
@@ -345,7 +477,21 @@
     </footer>
 
 
-    <script src="script.js"></script>
+    <div id="aviso" class="aviso" role="status" aria-live="polite">
+        <span id="aviso-texto"></span>
+        <a href="#carrito">Ver carrito</a>
+    </div>
+
+
+<div id="modal-imagen" class="modal-imagen" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Imagen ampliada del producto" onclick="cerrarImagen(event)">
+    <div class="modal-imagen-contenido">
+        <button type="button" class="cerrar-modal" aria-label="Cerrar imagen ampliada" onclick="cerrarImagen()">×</button>
+        <img id="imagen-modal" src="" alt="">
+        <p id="texto-imagen-modal"></p>
+    </div>
+</div>
+
+<script src="script.js?v=20261007-1"></script>
 
 </body>
 
