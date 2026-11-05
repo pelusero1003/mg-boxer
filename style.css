@@ -351,13 +351,15 @@ button:hover{
     margin:20px auto 0;
 }
 
-.modelo-por-encargo{
+.card.modelo-por-encargo{
+    display:block;
     padding:14px;
 }
 
-.modelo-por-encargo img{
+.card.modelo-por-encargo img{
     width:100%;
     height:170px;
+    min-height:0;
     object-fit:contain;
     display:block;
 }
