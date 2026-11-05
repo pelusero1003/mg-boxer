@@ -220,6 +220,48 @@ const disenosEstampados = [
 
 const rutaEstampados = "imagenes/Adulto/catalogo/estampados/";
 
+function mostrarModelosPorEncargo() {
+    const modelos = document.getElementById("modelos-por-encargo");
+    const disenos = disenosEstampados.filter(diseno => diseno.agotado && diseno.tallesPedido?.length);
+    if (!disenos.length) return;
+
+    disenos.forEach(function(diseno) {
+        const numero = diseno.archivo.split("-")[0];
+        const referencia = "Diseño " + numero + (diseno.codigo ? " · " + diseno.codigo : "");
+        const mensaje = "Hola MG Boxer, me interesa el Lody " + diseno.nombre +
+            " (" + referencia + "). ¿Lo podés conseguir en talle ___?";
+
+        const tarjeta = document.createElement("article");
+        tarjeta.className = "card modelo-por-encargo";
+
+        const imagen = document.createElement("img");
+        imagen.src = rutaEstampados + diseno.archivo;
+        imagen.alt = "Bóxer Lody " + diseno.nombre;
+        imagen.loading = "lazy";
+
+        const detalle = document.createElement("p");
+        detalle.className = "producto-categoria";
+        detalle.textContent = "Por encargo · " + referencia;
+
+        const nombre = document.createElement("h4");
+        nombre.textContent = diseno.nombre;
+
+        const enlace = document.createElement("a");
+        enlace.className = "boton-principal";
+        enlace.href = "https://wa.me/" + TELEFONO_WHATSAPP + "?text=" + encodeURIComponent(mensaje);
+        enlace.target = "_blank";
+        enlace.rel = "noopener";
+        enlace.textContent = "Consultar por WhatsApp";
+        enlace.setAttribute("aria-label", "Consultar por WhatsApp por " + diseno.nombre);
+
+        tarjeta.append(imagen, detalle, nombre, enlace);
+        modelos.append(tarjeta);
+    });
+
+    document.getElementById("por-encargo").hidden = false;
+    document.querySelector('.catalogo-accesos a[href="#por-encargo"]').hidden = false;
+}
+
 function iniciarGaleriaEstampados() {
     const selector = document.getElementById("diseno-estampado");
     const miniaturas = document.getElementById("miniaturas-estampado");
@@ -432,6 +474,7 @@ document.addEventListener("DOMContentLoaded", function() {
     iniciarGaleriaEstampados();
     cambiarDisenoNino();
     iniciarFiltrosCatalogo();
+    mostrarModelosPorEncargo();
 });
 
 function seleccionarColorLiso(color) {

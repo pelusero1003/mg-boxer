@@ -44,7 +44,7 @@
         ]
     }
     </script>
-    <link rel="stylesheet" href="style.css?v=20261007-1">
+    <link rel="stylesheet" href="style.css?v=20261105-1">
 </head>
 
 <body>
@@ -118,6 +118,14 @@
                 <p>Coordinamos día y horario. Consultá el costo según tu zona.</p>
             </div>
         </div>
+
+        <nav class="catalogo-accesos" aria-label="Secciones del catálogo">
+            <a class="boton-principal" href="#disponibles">Ver stock</a>
+            <a class="boton-principal" href="#por-encargo" hidden>Ver Lody por encargo</a>
+        </nav>
+
+        <section id="disponibles" class="catalogo-seccion" aria-labelledby="titulo-disponibles">
+        <h3 id="titulo-disponibles" class="catalogo-titulo">Disponibles ahora</h3>
 
         <div class="herramientas-catalogo">
             <label class="buscador-catalogo" for="buscar-producto">
@@ -334,6 +342,14 @@
 
         <p id="sin-resultados" class="sin-resultados" hidden>No encontramos ese modelo. Probá con otro nombre, color o código.</p>
 
+        </section>
+
+        <section id="por-encargo" class="catalogo-seccion" aria-labelledby="titulo-por-encargo" hidden>
+            <h3 id="titulo-por-encargo" class="catalogo-titulo">Lody por encargo</h3>
+            <p class="catalogo-texto">Elegí un diseño y consultanos por tu talle, precio y plazo de entrega.</p>
+            <div id="modelos-por-encargo" class="modelos-por-encargo"></div>
+        </section>
+
         <section class="como-comprar" aria-labelledby="titulo-como-comprar">
             <p class="como-comprar-etiqueta">COMPRA SIMPLE Y DIRECTA</p>
             <h2 id="titulo-como-comprar">¿Cómo comprar?</h2>
@@ -494,7 +510,7 @@
     </div>
 </div>
 
-<script src="script.js?v=20261007-1"></script>
+<script src="script.js?v=20261105-1"></script>
 
 </body>
 
